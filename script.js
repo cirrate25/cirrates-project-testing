@@ -750,7 +750,22 @@ const THEMES = [
   { id: "ocean", name: "Tropical Sunset", stops: ["#7c2d12", "#c2410c", "#ea580c", "#f97316", "#fb923c", "#0d9488"] },
   { id: "candy", name: "Synthwave", stops: ["#0a0518", "#1e0a3c", "#4a1268", "#831843", "#be185d", "#06d6d6"] },
   { id: "emerald", name: "Emerald Night", stops: ["#02120c", "#07301f", "#0e4d31", "#17553a", "#2c6b3f", "#a8e063"] },
-  { id: "paper", name: "Studio Mono", stops: ["#d1d5db", "#c4c8cf", "#b8bcc5", "#adb2bc", "#a3a8b4", "#6b7280"] }
+  { id: "paper", name: "Studio Mono", stops: ["#d1d5db", "#c4c8cf", "#b8bcc5", "#adb2bc", "#a3a8b4", "#6b7280"] },
+  { id: "arctic", name: "Arctic Frost", stops: ["#e0f2fe", "#bae6fd", "#7dd3fc", "#38bdf8", "#0ea5e9", "#0284c7"] },
+  { id: "volcanic", name: "Volcanic", stops: ["#1a0505", "#450a0a", "#7f1d1d", "#b91c1c", "#dc2626", "#f97316"] },
+  { id: "blossom", name: "Cherry Blossom", stops: ["#fce7f3", "#fbcfe8", "#f9a8d4", "#f472b6", "#ec4899", "#db2777"] },
+  { id: "lavender", name: "Lavender Haze", stops: ["#ede9fe", "#ddd6fe", "#c4b5fd", "#a78bfa", "#8b5cf6", "#7c3aed"] },
+  { id: "crimson", name: "Blood Moon", stops: ["#0f0505", "#2a0a0a", "#500a0a", "#7f1d1d", "#991b1b", "#ef4444"] },
+  { id: "matrix", name: "Matrix", stops: ["#022c22", "#064e3b", "#065f46", "#047857", "#059669", "#34d399"] },
+  { id: "golden", name: "Golden Hour", stops: ["#fef3c7", "#fde68a", "#fcd34d", "#fbbf24", "#f59e0b", "#d97706"] },
+  { id: "deepsea", name: "Ocean Deep", stops: ["#031726", "#0c2d4a", "#0c4a6e", "#075985", "#0369a1", "#0ea5e9"] },
+  { id: "pastel", name: "Pastel Dream", stops: ["#fef9c3", "#fde68a", "#fbcfe8", "#c4b5fd", "#a5f3fc", "#67e8f9"] },
+  { id: "rust", name: "Rust", stops: ["#271409", "#431407", "#7c2d12", "#9a3412", "#c2410c", "#ea580c"] },
+  { id: "frostbite", name: "Frostbite", stops: ["#ecfeff", "#cffafe", "#a5f3fc", "#67e8f9", "#22d3ee", "#06b6d4"] },
+  { id: "midnightpurple", name: "Midnight Purple", stops: ["#0c0420", "#1a0a40", "#2e1065", "#581c87", "#7e22ce", "#c084fc"] },
+  { id: "solar", name: "Solar Flare", stops: ["#fef3c7", "#fde68a", "#fcd34d", "#f59e0b", "#d97706", "#b45309"] },
+  { id: "phantom", name: "Phantom", stops: ["#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8"] },
+  { id: "ember", name: "Ember", stops: ["#1a0808", "#3b0c0c", "#7f1d1d", "#b91c1c", "#dc2626", "#f59e0b"] }
 ];
 
 function currentTheme() {
