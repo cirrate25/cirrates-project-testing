@@ -704,12 +704,21 @@ const tabs = [
   { btn: $("#tab-tools"), panel: $("#panel-tools") }
 ];
 function activateTab(activeBtn) {
+  const wasTools = tabs.find(t => t.btn.id === "tab-tools" && !t.panel.hidden);
   tabs.forEach(({ btn, panel }) => {
     const isActive = btn === activeBtn;
     btn.classList.toggle("is-active", isActive);
     btn.setAttribute("aria-selected", String(isActive));
     panel.hidden = !isActive;
   });
+  if (wasTools && activeBtn.id !== "tab-tools") {
+    const el = document.querySelector(".tools-panel-content");
+    if (el && el._x_dataStack) {
+      const d = el._x_dataStack[0];
+      ["dawModal","audioModal","mixingModal","distroModal","eqModal","compressorModal","reverbModal","delayModal","satModal","synthModal","samplerModal","meterModal","utilityModal","modModal"].forEach(k => { d[k] = false; });
+      document.body.style.overflow = "";
+    }
+  }
 }
 tabs.forEach(({ btn }) => btn.addEventListener("click", () => activateTab(btn)));
 
