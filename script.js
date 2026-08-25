@@ -746,11 +746,11 @@ const themeStorageKey = "music-production-resource-theme";
 const themeGrid = $("#theme-grid");
 const THEMES = [
   { id: "", name: "Miami Sunset", stops: ["#4a1268", "#a4187e", "#ff2f7e", "#ff6a3d", "#ffb24d", "#06b6a6"] },
-  { id: "midnight", name: "Midnight Neon", stops: ["#060214", "#170a33", "#331158", "#5a1a72", "#8a2b7d", "#59f2ff"] },
-  { id: "ocean", name: "Ocean Drive", stops: ["#d8fbff", "#9fe8f7", "#63cfe8", "#3aa8d8", "#2b7fc4", "#14549e"] },
-  { id: "candy", name: "Cotton Candy", stops: ["#f7e6c9", "#ecc3b4", "#dfa3cf", "#f2a9bd", "#f7b8ab", "#e9b7d4"] },
+  { id: "midnight", name: "Neon Noir", stops: ["#050510", "#0c0c2e", "#1a1050", "#2d1870", "#4c1d95", "#38bdf8"] },
+  { id: "ocean", name: "Tropical Sunset", stops: ["#7c2d12", "#c2410c", "#ea580c", "#f97316", "#fb923c", "#0d9488"] },
+  { id: "candy", name: "Synthwave", stops: ["#0a0518", "#1e0a3c", "#4a1268", "#831843", "#be185d", "#06d6d6"] },
   { id: "emerald", name: "Emerald Night", stops: ["#02120c", "#07301f", "#0e4d31", "#17553a", "#2c6b3f", "#a8e063"] },
-  { id: "paper", name: "Clean Paper", stops: ["#d5deeb", "#dde4ee", "#e6ebf2", "#eef1f6", "#f5f7fa", "#ffffff"] }
+  { id: "paper", name: "Studio Mono", stops: ["#d1d5db", "#c4c8cf", "#b8bcc5", "#adb2bc", "#a3a8b4", "#6b7280"] }
 ];
 
 function currentTheme() {
