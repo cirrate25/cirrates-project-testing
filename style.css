@@ -986,24 +986,76 @@ footer { display: flex; justify-content: space-between; gap: 18px; padding: 30px
 .settings-bottom {
   margin: 30px 0 10px;
   padding: 25px;
-  border: 1.5px solid var(--line);
+  border: none;
   border-radius: 16px;
-  background: var(--panel-bg);
+  background: linear-gradient(135deg, #f97316, #ec4899, #8b5cf6);
+  background-size: 200% 200%;
+  animation: sunset-shift 4s ease-in-out infinite;
   box-shadow: 5px 6px 0 var(--shadow);
-  backdrop-filter: blur(6px);
+  color: #fff;
+  position: relative;
+  z-index: 100;
 }
 .settings-bottom[hidden] { display: none; }
-.settings-reopen-btn {
-  padding: 6px 14px;
-  border: 1px solid var(--line-soft);
-  border-radius: 8px;
-  background: transparent;
-  color: var(--muted);
-  font: 500 .72rem "DM Mono", monospace;
-  cursor: pointer;
-  transition: color .15s, border-color .15s;
+.settings-bottom .panel-heading { color: #fff; }
+.settings-bottom .panel-heading .eyebrow { color: rgba(255,255,255,.7); }
+.settings-bottom .panel-heading h2 { color: #fff; }
+.settings-bottom .themes-section-title { color: #fff; }
+.settings-bottom .themes-section-desc { color: rgba(255,255,255,.75); }
+.settings-bottom .settings-close { color: rgba(255,255,255,.7); }
+.settings-bottom .settings-close:hover { color: #fff; }
+.settings-bottom label span { color: rgba(255,255,255,.85); }
+.settings-bottom input, .settings-bottom select {
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
 }
-.settings-reopen-btn:hover { color: var(--ink); border-color: var(--line); }
+.settings-bottom input::placeholder { color: rgba(255,255,255,.45); }
+.settings-bottom input:focus, .settings-bottom select:focus {
+  border-color: rgba(255,255,255,.5);
+  outline: none;
+}
+.settings-bottom button[type="button"] {
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font: 600 .8rem "Space Grotesk", sans-serif;
+  cursor: pointer;
+  transition: background .15s;
+}
+.settings-bottom button[type="button"]:hover { background: rgba(255,255,255,.3); }
+.settings-bottom .eyebrow { color: rgba(255,255,255,.7); }
+.settings-bottom .admin-content { border-top: 1px solid rgba(255,255,255,.2); padding-top: 16px; }
+.settings-bottom .admin-toolbar { color: #fff; }
+.settings-bottom .admin-toolbar h3 { color: #fff; }
+.settings-bottom .form-message { color: rgba(255,255,255,.8); }
+.settings-bottom .account-card {
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+}
+.settings-bottom .account-card h4 { color: #fff; }
+.settings-bottom .account-card p { color: rgba(255,255,255,.7); }
+.settings-bottom .account-connect-btn {
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.3);
+}
+.settings-bottom .account-connect-btn:hover { background: rgba(255,255,255,.35); }
+.settings-reopen-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f97316, #ec4899, #8b5cf6);
+  background-size: 200% 200%;
+  animation: sunset-shift 4s ease-in-out infinite;
+  color: #fff;
+  font: 600 .78rem "Space Grotesk", sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: filter .15s, transform .15s;
+}
+.settings-reopen-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
 /* ---- Accounts grid ---- */
 .accounts-grid {
@@ -1152,13 +1204,13 @@ footer { display: flex; justify-content: space-between; gap: 18px; padding: 30px
 .tools-link-card:hover .link-name { color: var(--purple); }
 .tools-link-card .link-desc { color: var(--muted); font-size: .75rem; margin-top: 3px; display: block; }
 .tools-modal-overlay {
-  position: fixed; inset: 0; z-index: 9999;
+  position: fixed; inset: 0; z-index: 99999;
   display: flex; align-items: center; justify-content: center;
   padding: 16px;
 }
 .tools-modal-bg {
   position: absolute; inset: 0;
-  background: rgba(0,0,0,.7);
+  background: rgba(0,0,0,.75);
   backdrop-filter: blur(6px);
   z-index: 1;
 }
