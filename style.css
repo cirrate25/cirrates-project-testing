@@ -994,7 +994,7 @@ footer { display: flex; justify-content: space-between; gap: 18px; padding: 30px
   box-shadow: 5px 6px 0 var(--shadow);
   color: #fff;
   position: relative;
-  z-index: 100;
+  z-index: 1;
 }
 .settings-bottom[hidden] { display: none; }
 .settings-bottom .panel-heading { color: #fff; }
@@ -1161,8 +1161,8 @@ footer { display: flex; justify-content: space-between; gap: 18px; padding: 30px
 [x-cloak] { display: none !important; }
 
 /* ---------- Tools Panel ---------- */
-#panel-tools { position: relative; z-index: 10; }
-.tools-panel-content { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 10; }
+#panel-tools { position: relative; z-index: 200; }
+.tools-panel-content { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 200; }
 .tools-panel-content .panel { background: var(--panel-bg); border: 1px solid var(--pill-border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 20px var(--shadow-soft); }
 .tools-panel-content .panel-heading { margin-bottom: 16px; }
 .tools-card {
