@@ -857,59 +857,35 @@ async function fetchRandomVideoThumb(channelUrl) {
   const placeholderEl = youtubeThumbPlaceholder;
   if (!thumbEl || !placeholderEl) return;
 
-  // Try to get channel ID from the URL directly
   let channelId = extractChannelId(channelUrl);
 
-  // If no channel ID, try fetching the page to find it
   if (!channelId) {
     try {
-      const resp = await fetch(channelUrl, { mode: "no-cors" });
-      // no-cors won't give us body, so try the RSS feed approach
+      const resp = await fetch(`https://www.youtube.com/${channelUrl.match(/youtube\.com\/(@[\w.-]+)/)?.[1] || ""}`, { mode: "no-cors" });
     } catch {}
   }
 
-  // Try the RSS feed with the channel URL handle
-  const handleMatch = channelUrl.match(/youtube\.com\/(@[\w.-]+)/);
-  if (handleMatch || channelId) {
+  if (channelId) {
     try {
-      const rssUrl = channelId
-        ? `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
-        : `https://www.youtube.com/feeds/videos.xml?channel_id=`;
-      
-      // If we have a handle, try to resolve channel ID via page
-      if (!channelId && handleMatch) {
-        // Try fetching the channel page to extract channel ID
-        try {
-          const pageResp = await fetch(`https://www.youtube.com/${handleMatch[1]}`);
-          const pageHtml = await pageResp.text();
-          const cidMatch = pageHtml.match(/"externalId"\s*:\s*"(UC[\w-]{22})"/);
-          if (cidMatch) channelId = cidMatch[1];
-        } catch {}
-      }
-
-      if (channelId) {
-        const feedResp = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`);
-        const feedText = await feedResp.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(feedText, "text/xml");
-        const entries = doc.querySelectorAll("entry");
-        if (entries.length) {
-          // Pick a random video
-          const randomEntry = entries[Math.floor(Math.random() * entries.length)];
-          const videoId = randomEntry.querySelector("id")?.textContent?.split(":").pop();
-          if (videoId) {
-            thumbEl.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-            thumbEl.alt = randomEntry.querySelector("title")?.textContent || "Latest video";
-            thumbEl.hidden = false;
-            placeholderEl.style.display = "none";
-            return;
-          }
+      const feedResp = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`);
+      const feedText = await feedResp.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(feedText, "text/xml");
+      const entries = doc.querySelectorAll("entry");
+      if (entries.length) {
+        const randomEntry = entries[Math.floor(Math.random() * entries.length)];
+        const videoId = randomEntry.querySelector("id")?.textContent?.split(":").pop();
+        if (videoId) {
+          thumbEl.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+          thumbEl.alt = randomEntry.querySelector("title")?.textContent || "Latest video";
+          thumbEl.hidden = false;
+          placeholderEl.style.display = "none";
+          return;
         }
       }
     } catch {}
   }
 
-  // Fallback: show placeholder
   thumbEl.hidden = true;
   placeholderEl.style.display = "";
 }
