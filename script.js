@@ -832,7 +832,7 @@ function applyWallpaper(id, { persist = true } = {}) {
    YOUTUBE CHANNEL SETTINGS
    ===================================================================== */
 const youtubeStorageKey = "music-production-youtube";
-const youtubeUrlInput = $("#youtube-url");
+const YOUTUBE_URL = "https://www.youtube.com/@NEVRAMV";
 const youtubeNameInput = $("#youtube-name-input");
 const youtubeDescInput = $("#youtube-desc-input");
 const youtubeSaveBtn = $("#youtube-save-btn");
@@ -843,7 +843,7 @@ const youtubeDescEl = $("#youtube-desc");
 const youtubeLinkEl = $("#youtube-link");
 
 function getYoutubeSettings() {
-  return readJson(youtubeStorageKey, { url: "", name: "Your Channel", desc: "Connect your YouTube channel here. Add your channel URL in Settings below." });
+  return readJson(youtubeStorageKey, { url: YOUTUBE_URL, name: "NEVRAMV", desc: "Beats & tutorials" });
 }
 
 function extractChannelId(url) {
@@ -916,26 +916,23 @@ async function fetchRandomVideoThumb(channelUrl) {
 
 function applyYoutubeSettings() {
   const yt = getYoutubeSettings();
-  if (youtubeTitleEl) youtubeTitleEl.textContent = yt.name || "Your Channel";
+  if (youtubeTitleEl) youtubeTitleEl.textContent = yt.name || "NEVRAMV";
   if (youtubeDescEl) youtubeDescEl.textContent = yt.desc || "";
-  if (youtubeUrlInput) youtubeUrlInput.value = yt.url || "";
   if (youtubeNameInput) youtubeNameInput.value = yt.name || "";
   if (youtubeDescInput) youtubeDescInput.value = yt.desc || "";
 
-  if (yt.url && youtubeLinkEl) {
-    youtubeLinkEl.href = yt.url;
+  if (youtubeLinkEl) {
+    youtubeLinkEl.href = YOUTUBE_URL;
     youtubeLinkEl.hidden = false;
   }
-  if (yt.url) {
-    fetchRandomVideoThumb(yt.url);
-  }
+  fetchRandomVideoThumb(YOUTUBE_URL);
 }
 
 if (youtubeSaveBtn) {
   youtubeSaveBtn.addEventListener("click", () => {
     const settings = {
-      url: youtubeUrlInput.value.trim(),
-      name: youtubeNameInput.value.trim() || "Your Channel",
+      url: YOUTUBE_URL,
+      name: youtubeNameInput.value.trim() || "NEVRAMV",
       desc: youtubeDescInput.value.trim() || ""
     };
     writeJson(youtubeStorageKey, settings);
@@ -950,7 +947,7 @@ if (youtubeSaveBtn) {
    INSTAGRAM PROFILE SETTINGS
    ===================================================================== */
 const instagramStorageKey = "music-production-instagram";
-const instagramUrlInput = $("#instagram-url");
+const INSTAGRAM_URL = "https://www.instagram.com/endeverrecords/";
 const instagramNameInput = $("#instagram-name-input");
 const instagramDescInput = $("#instagram-desc-input");
 const instagramSaveBtn = $("#instagram-save-btn");
@@ -959,19 +956,18 @@ const instagramDescEl = $("#instagram-desc");
 const instagramLinkEl = $("#instagram-link");
 
 function getInstagramSettings() {
-  return readJson(instagramStorageKey, { url: "", name: "Your Instagram", desc: "Connect your Instagram profile." });
+  return readJson(instagramStorageKey, { url: INSTAGRAM_URL, name: "endeverrecords", desc: "Follow us on Instagram" });
 }
 
 function applyInstagramSettings() {
   const ig = getInstagramSettings();
-  if (instagramTitleEl) instagramTitleEl.textContent = ig.name || "Your Instagram";
+  if (instagramTitleEl) instagramTitleEl.textContent = ig.name || "endeverrecords";
   if (instagramDescEl) instagramDescEl.textContent = ig.desc || "";
-  if (instagramUrlInput) instagramUrlInput.value = ig.url || "";
   if (instagramNameInput) instagramNameInput.value = ig.name || "";
   if (instagramDescInput) instagramDescInput.value = ig.desc || "";
 
-  if (ig.url && instagramLinkEl) {
-    instagramLinkEl.href = ig.url;
+  if (instagramLinkEl) {
+    instagramLinkEl.href = INSTAGRAM_URL;
     instagramLinkEl.hidden = false;
   }
 }
@@ -979,8 +975,8 @@ function applyInstagramSettings() {
 if (instagramSaveBtn) {
   instagramSaveBtn.addEventListener("click", () => {
     const settings = {
-      url: instagramUrlInput.value.trim(),
-      name: instagramNameInput.value.trim() || "Your Instagram",
+      url: INSTAGRAM_URL,
+      name: instagramNameInput.value.trim() || "endeverrecords",
       desc: instagramDescInput.value.trim() || ""
     };
     writeJson(instagramStorageKey, settings);
@@ -1090,11 +1086,9 @@ accountCards.forEach((btn) => {
   btn.addEventListener("click", () => {
     const account = btn.dataset.account;
     if (account === "youtube") {
-      const input = $("#youtube-url");
-      if (input) { input.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => input.focus(), 400); }
+      window.open(YOUTUBE_URL, "_blank");
     } else if (account === "instagram") {
-      const input = $("#instagram-url");
-      if (input) { input.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => input.focus(), 400); }
+      window.open(INSTAGRAM_URL, "_blank");
     } else if (account === "discord") {
       const input = prompt("Paste your Discord invite URL:");
       if (input) {
@@ -1114,21 +1108,19 @@ function updateAccountStatuses() {
   const yt = getYoutubeSettings();
   const ig = getInstagramSettings();
   const dcUrl = localStorage.getItem("music-production-discord-invite") || "";
-  const ytUrl = (youtubeUrlInput ? youtubeUrlInput.value.trim() : "") || yt.url || "";
-  const igUrl = (instagramUrlInput ? instagramUrlInput.value.trim() : "") || ig.url || "";
+  const ytUrl = YOUTUBE_URL;
+  const igUrl = INSTAGRAM_URL;
   const ytStatus = $("#account-yt-status");
   const igStatus = $("#account-ig-status");
   const dcStatus = $("#account-dc-status");
-  const ytName = (youtubeNameInput ? youtubeNameInput.value.trim() : "") || yt.name || "Your Channel";
-  const igName = (instagramNameInput ? instagramNameInput.value.trim() : "") || ig.name || "Your Instagram";
+  const ytName = (youtubeNameInput ? youtubeNameInput.value.trim() : "") || yt.name || "NEVRAMV";
+  const igName = (instagramNameInput ? instagramNameInput.value.trim() : "") || ig.name || "endeverrecords";
   if (ytStatus) ytStatus.textContent = ytUrl ? `Connected — ${ytName}` : "Not connected";
   if (igStatus) igStatus.textContent = igUrl ? `Connected — ${igName}` : "Not connected";
   if (dcStatus) dcStatus.textContent = dcUrl ? "Connected" : "Not connected";
 }
 updateAccountStatuses();
 
-/* Auto-update account status when URL fields change */
-if (youtubeUrlInput) youtubeUrlInput.addEventListener("input", updateAccountStatuses);
-if (instagramUrlInput) instagramUrlInput.addEventListener("input", updateAccountStatuses);
+/* Auto-update account status when fields change */
 if (youtubeNameInput) youtubeNameInput.addEventListener("input", updateAccountStatuses);
 if (instagramNameInput) instagramNameInput.addEventListener("input", updateAccountStatuses);
