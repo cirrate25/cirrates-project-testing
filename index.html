@@ -587,8 +587,8 @@
                 <div style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,0.1);"></div>
                 <div style="position:absolute;left:0;right:0;top:25%;height:1px;background:rgba(255,255,255,0.05);"></div>
                 <div style="position:absolute;left:0;right:0;bottom:25%;height:1px;background:rgba(255,255,255,0.05);"></div>
-                <div style="position:absolute;left:0;right:0;height:1px;border-top:1px dashed rgba(248,113,113,0.5);transition:all 100ms;" :style="'top: ' + (20 + (1 - thresholdLin) * 100) + 'px'"></div>
-                <span style="position:absolute;font-size:9px;color:rgba(248,113,113,0.6);left:4px;transition:all 100ms;" :style="'top: ' + (20 + (1 - thresholdLin) * 100 - 10) + 'px'">Threshold</span>
+                <div style="position:absolute;left:0;right:0;height:1px;border-top:1px dashed rgba(248,113,113,0.5);transition:all 100ms;" :style="'top: ' + ((70 - thresholdLin * 50) / 140 * 100) + '%'"></div>
+                <span style="position:absolute;font-size:9px;color:rgba(248,113,113,0.6);left:4px;transition:all 100ms;" :style="'top: calc(' + ((70 - thresholdLin * 50) / 140 * 100) + '% - 10px)'">Threshold</span>
                 <div style="position:absolute;bottom:4px;right:4px;display:flex;align-items:flex-end;gap:1px;height:24px;">
                   <template x-for="(gr, i) in grEnvelope" :key="i">
                     <div style="width:2px;background:rgba(168,85,247,0.6);" :style="'height: ' + (gr * 24) + 'px'"></div>

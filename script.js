@@ -268,8 +268,6 @@ async function initialSync() {
     setSyncState("OFFLINE MODE");
     $("#sync-note").textContent = "Couldn't reach the shared board right now — additions are kept and will sync later.";
   }
-  renderResources();
-  updateCounts();
 }
 
 async function periodicPull() {
@@ -685,11 +683,12 @@ adminReports.addEventListener("click", async (event) => {
 
   if (removeBtn) {
     const url = removeBtn.dataset.reportUrl;
+    const name = removeBtn.closest(".report-card")?.querySelector("h4")?.textContent?.trim();
     if (!url) return;
     if (!confirm("Remove this link and dismiss the report?")) return;
     removeBtn.disabled = true;
-    // Remove the link from store
-    store.links = store.links.filter((link) => link.url !== url);
+    // Remove only the specific link (matching URL + name) instead of all duplicates
+    store.links = store.links.filter((link) => !(link.url === url && link.name === name));
     writeJson(storageKey, store.links);
     // Find and delete all reports for this URL
     const reportsToRemove = store.reports.filter((r) => r.link_url === url);
@@ -721,11 +720,11 @@ function activateTab(activeBtn) {
     panel.hidden = !isActive;
   });
   if (wasTools && activeBtn.id !== "tab-tools") {
+    document.body.style.overflow = "";
     const el = document.querySelector(".tools-panel-content");
     if (el && el._x_dataStack) {
       const d = el._x_dataStack[0];
       ["dawModal","audioModal","mixingModal","distroModal","eqModal","compressorModal","reverbModal","delayModal","satModal","synthModal","samplerModal","meterModal","utilityModal","modModal"].forEach(k => { d[k] = false; });
-      document.body.style.overflow = "";
     }
   }
 }
@@ -757,8 +756,9 @@ if (DISCORD_INVITE_URL && discordJoin) {
 }
 if (DISCORD_SERVER_ID) {
   const widgetWrap = $("#discord-widget-wrap");
-  $("#discord-widget").src = `https://discord.com/widget?id=${DISCORD_SERVER_ID}&theme=dark`;
-  widgetWrap.hidden = false;
+  const widgetFrame = $("#discord-widget");
+  if (widgetFrame) widgetFrame.src = `https://discord.com/widget?id=${DISCORD_SERVER_ID}&theme=dark`;
+  if (widgetWrap) widgetWrap.hidden = false;
 }
 
 /* =====================================================================
@@ -847,7 +847,7 @@ function applyWallpaper(id, { persist = true } = {}) {
   wallpaperLayer.style.backgroundImage = "";
   customScene.innerHTML = "";
   if (entry?.type === "url" && safeUrl(entry.url)) {
-    wallpaperLayer.style.backgroundImage = `url("${safeUrl(entry.url).href}")`;
+    wallpaperLayer.style.backgroundImage = `url("${safeUrl(entry.url).href.replace(/"/g, '%22')}")`;
     defaultScene.style.visibility = "hidden";
     if (persist) setActiveWallpaperId(entry.id);
   } else if (entry?.type === "html") {
@@ -891,12 +891,6 @@ async function fetchRandomVideoThumb(channelUrl) {
   if (!thumbEl || !placeholderEl) return;
 
   let channelId = extractChannelId(channelUrl);
-
-  if (!channelId) {
-    try {
-      const resp = await fetch(`https://www.youtube.com/${channelUrl.match(/youtube\.com\/(@[\w.-]+)/)?.[1] || ""}`, { mode: "no-cors" });
-    } catch {}
-  }
 
   if (channelId) {
     try {
