@@ -196,6 +196,8 @@ async function pullRemote() {
       sb.from("links").select("*").order("created_at", { ascending: false }),
       sb.from("reports").select("*").order("created_at", { ascending: false })
     ]);
+    if (linksRes.error) throw linksRes.error;
+    if (reportsRes.error) throw reportsRes.error;
     return {
       links: (linksRes.data || []).map((row) => ({ id: row.id, name: row.name, url: row.url, cat: row.cat, ts: new Date(row.created_at).getTime(), origin: "remote" })),
       reports: (reportsRes.data || []).map((row) => ({ ...row, local: false }))
@@ -207,7 +209,7 @@ async function pullRemote() {
 
 async function pushRemote() {
   if (backendMode === "supabase") {
-    const unsynced = pendingLocalLinks;
+    const unsynced = [...pendingLocalLinks];
     pendingLocalLinks = [];
     for (const link of unsynced) {
       const { error } = await sb.from("links").insert([{ name: link.name, url: link.url, cat: link.cat }]);
@@ -385,6 +387,8 @@ function removeLink(id) {
   if (!confirm("Remove this link?")) return;
   store.links = store.links.filter((link) => link.id !== id);
   writeJson(storageKey, store.links);
+  if (backendMode === "supabase") sb.from("links").delete().eq("id", id).then(() => {});
+  else if (backendMode === "json") putJsonDoc(store).catch(() => {});
   renderResources();
   updateCounts();
 }
@@ -578,7 +582,7 @@ resourceGrid.addEventListener("click", async (event) => {
   } else if (event.target.matches(".report-submit")) {
     const reason = item.querySelector(".report-reason").value;
     event.target.disabled = true;
-    const report = { id: makeId(), link_name: linkName, link_url: linkUrl, reason, created_at: new Date().toISOString(), local: true };
+    const report = { id: makeId(), link_name: linkName, link_url: linkUrl, reason, created_at: new Date().toISOString(), local: backendMode === "local" };
     store.reports = mergeById(store.reports, [report]);
     if (backendMode === "local") writeJson(reportsStorageKey, store.reports);
     let ok = true;
@@ -596,7 +600,6 @@ resourceGrid.addEventListener("click", async (event) => {
 
 const settingsPanel = $("#settings-panel");
 const settingsClose = $("#settings-close");
-const adminLogin = $("#admin-login");
 const adminContent = $("#admin-content");
 const adminReports = $("#admin-reports");
 const adminStatus = $("#admin-status");
@@ -690,9 +693,12 @@ adminReports.addEventListener("click", async (event) => {
     // Remove only the specific link (matching URL + name) instead of all duplicates
     store.links = store.links.filter((link) => !(link.url === url && link.name === name));
     writeJson(storageKey, store.links);
-    // Find and delete all reports for this URL
+    // Batch remove all reports for this URL in one write
     const reportsToRemove = store.reports.filter((r) => r.link_url === url);
-    for (const r of reportsToRemove) await deleteReport(r);
+    store.reports = store.reports.filter((r) => r.link_url !== url);
+    if (backendMode === "local") writeJson(reportsStorageKey, store.reports);
+    else if (backendMode === "supabase") { for (const r of reportsToRemove) sb.from("reports").delete().eq("id", r.id).then(() => {}); }
+    else if (backendMode === "json") putJsonDoc(store).catch(() => {});
     renderResources();
     updateCounts();
     loadAdminReports();
@@ -837,6 +843,7 @@ function setActiveWallpaperId(id) {
 }
 
 function renderWallpaperHtml(container, html) {
+  if (!html) { container.innerHTML = ""; return; }
   const safe = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
     .replace(/\bon\w+\s*=/gi, "data-blocked=");
   container.innerHTML = safe;
@@ -1069,6 +1076,7 @@ applyWallpaper(getActiveWallpaperId(), { persist: false });
 applyYoutubeSettings();
 applyInstagramSettings();
 initialSync().then(() => {
+  renderCategoryOptions();
   renderResources();
   updateCounts();
 });
