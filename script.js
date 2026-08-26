@@ -1109,7 +1109,7 @@ accountCards.forEach((btn) => {
     } else if (account === "discord") {
       const input = prompt("Paste your Discord invite URL:");
       if (input) {
-        const safeDiscord = /^https:\/\/(discord\.gg|discord\.com\/invite)\/[\w-]+$/i.test(input.trim());
+        const safeDiscord = /^https?:\/\/(www\.)?(discord\.gg|discord\.com\/invite)\/[\w-]+(\/?\?[\w=&%-]*)?$/i.test(input.trim());
         if (!safeDiscord) { alert("Invalid Discord invite URL. Must be a discord.gg or discord.com/invite link."); return; }
         const joinBtn = $("#discord-join");
         if (joinBtn) { joinBtn.href = input.trim(); joinBtn.hidden = false; }

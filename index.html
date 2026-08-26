@@ -223,7 +223,7 @@
       <div class="tools-card" role="button" tabindex="0" @click="dawModal = true" @keydown.enter="dawModal = true" @keydown.space.prevent="dawModal = true">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
           <div class="tools-card-icon">🎛️</div>
-        <h3 id="modal-title-daw">Digital Audio Workstations</h3>
+        <h3>Digital Audio Workstations</h3>
           <span class="card-meta">Click to explore</span>
         </div>
         <p>Browser and desktop DAWs for every platform and budget.</p>
@@ -241,7 +241,7 @@
       <div class="tools-card" role="button" tabindex="0" @click="mixingModal = true" @keydown.enter="mixingModal = true" @keydown.space.prevent="mixingModal = true">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
           <div class="tools-card-icon">🎚️</div>
-        <h3 id="modal-title-mixing">Mixing Basics</h3>
+        <h3>Mixing Basics</h3>
           <span class="card-meta">Click to explore</span>
         </div>
         <p>Levels, EQ, compression, and panning — get your tracks sounding polished.</p>
@@ -255,7 +255,7 @@
     <div class="tools-modal-bg" @click="dawModal = false"></div>
     <div class="tools-modal-box">
       <div class="tools-modal-header">
-        <h3>Digital Audio Workstations</h3>
+        <h3 id="modal-title-daw">Digital Audio Workstations</h3>
         <button @click="dawModal = false" class="tools-modal-close">×</button>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">
@@ -433,7 +433,7 @@
     <div class="tools-modal-bg" @click="mixingModal = false"></div>
     <div class="tools-modal-box wide">
       <div class="tools-modal-header">
-        <h3>Mixing Basics</h3>
+        <h3 id="modal-title-mixing">Mixing Basics</h3>
         <button @click="mixingModal = false" class="tools-modal-close">×</button>
       </div>
       <div class="section-note" style="margin-bottom:16px;text-align:center;">W.I.P. — guides to the basics</div>
@@ -1390,7 +1390,7 @@
               <button id="refresh-reports" type="button">Refresh</button>
             </div>
           </div>
-          <div id="admin-reports" class="admin-reports" aria-live="polite"></div>
+          <div id="admin-reports" class="admin-reports"></div>
           <p id="admin-status" class="form-message" aria-live="polite"></p>
         </div>
       </aside>
