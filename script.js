@@ -93,9 +93,8 @@ const safeUrl = (value) => {
 };
 
 function escapeHtml(value) {
-  const div = document.createElement("div");
-  div.textContent = value == null ? "" : String(value);
-  return div.innerHTML;
+  if (value == null) return "";
+  return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 
 function makeId() {
@@ -433,7 +432,13 @@ function importLinks(file) {
       const imported = data.links.map((l, i) => normalizeLink(l, i));
       store.links = mergeById(store.links, imported);
       writeJson(storageKey, store.links);
-      if (data.wallpapers && Array.isArray(data.wallpapers)) saveWallpapers(data.wallpapers);
+      if (data.wallpapers && Array.isArray(data.wallpapers)) {
+        const safeWallpapers = data.wallpapers.map(w => ({
+          ...w,
+          html: w.html ? w.html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "").replace(/\bon\w+\s*=/gi, "data-blocked=") : w.html
+        }));
+        saveWallpapers(safeWallpapers);
+      }
       if (data.activeWallpaper) setActiveWallpaperId(data.activeWallpaper);
       if (data.theme !== undefined) applyTheme(data.theme);
       if (data.searches && Array.isArray(data.searches)) writeJson(searchStorageKey, data.searches);
@@ -442,8 +447,8 @@ function importLinks(file) {
       updateCounts();
       renderSuggestions();
       renderWallpaperList();
-applyWallpaper(getActiveWallpaperId(), { persist: false });
-applyYoutubeSettings();
+      applyWallpaper(getActiveWallpaperId(), { persist: false });
+      applyYoutubeSettings();
       alert(`Imported ${imported.length} links successfully.`);
     } catch (e) {
       alert("Could not read backup file: " + e.message);
@@ -533,7 +538,11 @@ function renderSuggestions() {
   searchSuggestions.innerHTML = getSearches().slice(0, 10)
     .map((item) => `<option value="${escapeHtml(item)}"></option>`).join("");
 }
-searchInput.addEventListener("input", () => renderResources());
+let searchDebounce;
+searchInput.addEventListener("input", () => {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => renderResources(), 200);
+});
 searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const search = searchInput.value.trim();
@@ -722,6 +731,19 @@ function activateTab(activeBtn) {
 }
 tabs.forEach(({ btn }) => btn.addEventListener("click", () => activateTab(btn)));
 
+/* Arrow-key navigation for tabs */
+const tabBtns = tabs.map(t => t.btn);
+document.querySelector(".view-tabs")?.addEventListener("keydown", (e) => {
+  const idx = tabBtns.indexOf(document.activeElement);
+  if (idx === -1) return;
+  if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+    e.preventDefault();
+    const next = e.key === "ArrowRight" ? (idx + 1) % tabBtns.length : (idx - 1 + tabBtns.length) % tabBtns.length;
+    tabBtns[next].focus();
+    activateTab(tabBtns[next]);
+  }
+});
+
 /* =====================================================================
    DISCORD
    ===================================================================== */
@@ -815,13 +837,9 @@ function setActiveWallpaperId(id) {
 }
 
 function renderWallpaperHtml(container, html) {
-  container.innerHTML = html;
-  container.querySelectorAll("script").forEach((oldScript) => {
-    const newScript = document.createElement("script");
-    for (const attr of oldScript.attributes) newScript.setAttribute(attr.name, attr.value);
-    newScript.textContent = oldScript.textContent;
-    oldScript.replaceWith(newScript);
-  });
+  const safe = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/\bon\w+\s*=/gi, "data-blocked=");
+  container.innerHTML = safe;
 }
 
 function applyWallpaper(id, { persist = true } = {}) {
@@ -1060,7 +1078,15 @@ initialSync().then(() => {
   renderResources();
   updateCounts();
 });
-setInterval(periodicPull, 60000);
+window._pullInterval = setInterval(periodicPull, 60000);
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    clearInterval(window._pullInterval);
+    window._pullInterval = null;
+  } else if (!window._pullInterval) {
+    window._pullInterval = setInterval(periodicPull, 60000);
+  }
+});
 
 /* Export / Import buttons */
 const exportBtn = $("#export-links-btn");
@@ -1083,11 +1109,13 @@ accountCards.forEach((btn) => {
     } else if (account === "discord") {
       const input = prompt("Paste your Discord invite URL:");
       if (input) {
+        const safeDiscord = /^https:\/\/(discord\.gg|discord\.com\/invite)\/[\w-]+$/i.test(input.trim());
+        if (!safeDiscord) { alert("Invalid Discord invite URL. Must be a discord.gg or discord.com/invite link."); return; }
         const joinBtn = $("#discord-join");
-        if (joinBtn) { joinBtn.href = input; joinBtn.hidden = false; }
+        if (joinBtn) { joinBtn.href = input.trim(); joinBtn.hidden = false; }
         const setupNote = $("#discord-setup-note");
         if (setupNote) setupNote.hidden = true;
-        localStorage.setItem("music-production-discord-invite", input);
+        localStorage.setItem("music-production-discord-invite", input.trim());
         updateAccountStatuses();
       }
     }
