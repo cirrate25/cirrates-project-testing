@@ -221,16 +221,16 @@
     <div class="tools-grid-3">
 
       <div class="tools-card" role="button" tabindex="0" @click="dawModal = true" @keydown.enter="dawModal = true" @keydown.space.prevent="dawModal = true">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <div class="tools-card-head">
           <div class="tools-card-icon">🎛️</div>
-        <h3>Digital Audio Workstations</h3>
+          <h3>Digital Audio Workstations</h3>
           <span class="card-meta">Click to explore</span>
         </div>
         <p>Browser and desktop DAWs for every platform and budget.</p>
       </div>
 
       <div class="tools-card" role="button" tabindex="0" @click="audioModal = true" @keydown.enter="audioModal = true" @keydown.space.prevent="audioModal = true">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <div class="tools-card-head">
           <div class="tools-card-icon">🎧</div>
           <h3>Audio Gear</h3>
           <span class="card-meta">Click to explore</span>
@@ -239,9 +239,9 @@
       </div>
 
       <div class="tools-card" role="button" tabindex="0" @click="mixingModal = true" @keydown.enter="mixingModal = true" @keydown.space.prevent="mixingModal = true">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <div class="tools-card-head">
           <div class="tools-card-icon">🎚️</div>
-        <h3>Mixing Basics</h3>
+          <h3>Mixing Basics</h3>
           <span class="card-meta">Click to explore</span>
         </div>
         <p>Levels, EQ, compression, and panning — get your tracks sounding polished.</p>
@@ -258,7 +258,7 @@
         <h3 id="modal-title-daw">Digital Audio Workstations</h3>
         <button @click="dawModal = false" class="tools-modal-close">×</button>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">
+      <div class="tools-modal-grid">
 
         <div style="grid-column:1/-1;">
           <h4 class="eyebrow">Browser Based</h4>
@@ -390,39 +390,39 @@
         <button @click="audioModal = false" class="tools-modal-close">×</button>
       </div>
       <div class="tools-modal-grid">
-        <div style="padding:20px;border-radius:12px;background:var(--panel-bg);border:1px solid var(--line);">
-          <h4 style="color:var(--purple);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🔊 Audio Interface</h4>
+        <div class="tools-gear-card">
+          <h4>🔊 Audio Interface</h4>
           <p class="section-note">The hub of your studio. Converts analog mic/guitar signals to digital and back. Without one, you get noise and latency.</p>
-          <p style="color:var(--muted);font-size:12px;margin-top:8px;"><span style="color:var(--ink);">Start with:</span> Focusrite Scarlett, Universal Audio</p>
+          <p class="gear-note"><span>Start with:</span> Focusrite Scarlett, Universal Audio</p>
         </div>
-        <div style="padding:20px;border-radius:12px;background:var(--panel-bg);border:1px solid var(--line);">
-          <h4 style="color:var(--purple);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🔈 Studio Monitors</h4>
+        <div class="tools-gear-card">
+          <h4>🔈 Studio Monitors</h4>
           <p class="section-note">Flat frequency response — no bass boost or coloration. Hear what's really in your mix, not what your speakers want you to hear.</p>
-          <p style="color:var(--muted);font-size:12px;margin-top:8px;"><span style="color:var(--ink);">Start with:</span> KRK Rokit, Yamaha HS series</p>
+          <p class="gear-note"><span>Start with:</span> KRK Rokit, Yamaha HS series</p>
         </div>
-        <div style="padding:20px;border-radius:12px;background:var(--panel-bg);border:1px solid var(--line);">
-          <h4 style="color:var(--purple);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🎧 Studio Headphones</h4>
+        <div class="tools-gear-card">
+          <h4>🎧 Studio Headphones</h4>
           <p class="section-note">Closed-back for recording (no bleed into mic). Open-back for mixing (natural soundstage). Both essential.</p>
-          <p style="color:var(--muted);font-size:12px;margin-top:8px;"><span style="color:var(--ink);">Start with:</span> Audio-Technica ATH-M50x, Beyerdynamic DT 770/990</p>
+          <p class="gear-note"><span>Start with:</span> Audio-Technica ATH-M50x, Beyerdynamic DT 770/990</p>
         </div>
-        <div style="padding:20px;border-radius:12px;background:var(--panel-bg);border:1px solid var(--line);">
-          <h4 style="color:var(--purple);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🎤 Microphone</h4>
+        <div class="tools-gear-card">
+          <h4>🎤 Microphone</h4>
           <p class="section-note">Large-diaphragm condenser for vocals/acoustic. Dynamic (SM57/58) for amps/drums. Skip USB mics — go XLR through an interface.</p>
-          <p style="color:var(--muted);font-size:12px;margin-top:8px;"><span style="color:var(--ink);">Start with:</span> Audio-Technica AT2020, Shure SM57/SM58</p>
+          <p class="gear-note"><span>Start with:</span> Audio-Technica AT2020, Shure SM57/SM58</p>
         </div>
-        <div style="padding:20px;border-radius:12px;background:var(--panel-bg);border:1px solid var(--line);grid-column:1/-1;">
-          <h4 style="color:var(--purple);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🔇 Soundproofing vs Acoustic Treatment</h4>
+        <div class="tools-gear-card" style="grid-column:1/-1;">
+          <h4>🔇 Soundproofing vs Acoustic Treatment</h4>
            <div class="tools-modal-grid-2">
-            <div style="padding:12px;border-radius:8px;background:var(--panel-bg);border:1px solid var(--line);">
-              <span style="color:var(--ink);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">Soundproofing</span>
-              <p style="color:var(--muted);font-size:12px;margin-top:4px;line-height:1.5;">Keeps sound in/out. Requires dense materials — drywall, mass-loaded vinyl. Expensive, often needs construction.</p>
+            <div class="tools-gear-sub">
+              <span class="gear-sub-label">Soundproofing</span>
+              <p>Keeps sound in/out. Requires dense materials — drywall, mass-loaded vinyl. Expensive, often needs construction.</p>
             </div>
-            <div style="padding:12px;border-radius:8px;background:var(--panel-bg);border:1px solid var(--line);">
-              <span style="color:var(--ink);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">Acoustic Treatment</span>
-              <p style="color:var(--muted);font-size:12px;margin-top:4px;line-height:1.5;">Controls reflections. Absorption panels at first-reflection points, bass traps in corners. Rugs, curtains, bookshelves help too.</p>
+            <div class="tools-gear-sub">
+              <span class="gear-sub-label">Acoustic Treatment</span>
+              <p>Controls reflections. Absorption panels at first-reflection points, bass traps in corners. Rugs, curtains, bookshelves help too.</p>
             </div>
           </div>
-          <p style="color:var(--muted);font-size:12px;margin-top:12px;"><span style="color:var(--ink);">Quick tip:</span> Record in a closet full of clothes for natural absorption. Use monitor stands to decouple from desk.</p>
+          <p class="gear-note" style="margin-top:12px;"><span>Quick tip:</span> Record in a closet full of clothes for natural absorption. Use monitor stands to decouple from desk.</p>
         </div>
       </div>
     </div>
@@ -817,10 +817,10 @@
 
   <!-- Free Plugins -->
   <div id="cooking" class="panel">
-    <h2 class="panel-heading">🔧 Cooking — Free Plugins <span class="eyebrow" style="margin-left:8px;">VST3 / AU / AAX</span></h2>
+    <h2 class="panel-heading">🔧 Cooking — Free Plugins <span class="eyebrow">VST3 / AU / AAX</span></h2>
     <p class="section-note">Real free plugins that actually hold up in a mix. Click a category for hand-picked recommendations — every one is genuinely free and commercially usable.</p>
 
-    <div class="tools-grid-5" style="margin-top:16px;">
+    <div class="tools-grid-5">
       <div class="tools-cat-card" role="button" tabindex="0" @click="eqModal = true" @keydown.enter="eqModal = true" @keydown.space.prevent="eqModal = true"><span class="cat-icon">📊</span><h3>EQ</h3><p>Equalization</p></div>
       <div class="tools-cat-card" role="button" tabindex="0" @click="compressorModal = true" @keydown.enter="compressorModal = true" @keydown.space.prevent="compressorModal = true"><span class="cat-icon">⚡</span><h3>Compressors</h3><p>Dynamics</p></div>
       <div class="tools-cat-card" role="button" tabindex="0" @click="reverbModal = true" @keydown.enter="reverbModal = true" @keydown.space.prevent="reverbModal = true"><span class="cat-icon">🔊</span><h3>Reverbs</h3><p>Space & depth</p></div>
@@ -838,7 +838,7 @@
       <div class="tools-modal-bg" @click="eqModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-eq">📊 Free EQ Plugins</h3><button @click="eqModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://www.tokyodawn.net/tdr-nova/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TDR Nova</span><span class="link-desc">Dynamic parametric EQ — 4 bands that can react to the incoming signal. Brilliant for de-essing, taming harsh frequencies, and frequency-selective compression.</span></a>
           <a href="https://www.tokyodawn.net/tdr-slickeq/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TDR SlickEQ</span><span class="link-desc">Mixing EQ with three switchable voicing modes (American, British, German). 3 bands with filters — great for shaping tone on individual tracks or buses.</span></a>
           <a href="https://zlplugins.com/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">ZL Equalizer</span><span class="link-desc">Clean, modern parametric EQ with up to 8 bands, linear phase mode, and a built-in spectrum analyzer. No frills, just surgical precision.</span></a>
@@ -853,7 +853,7 @@
       <div class="tools-modal-bg" @click="compressorModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-compressor">⚡ Free Compressor Plugins</h3><button @click="compressorModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://www.tokyodawn.net/tdr-kotelnikov/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TDR Kotelnikov</span><span class="link-desc">Mastering-grade wideband compressor. Transparent, precise, with separate release times for peak and RMS content.</span></a>
           <a href="https://www.audiodamage.com/products/ad046-rough-rider-3" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Rough Rider 3 (Audio Damage)</span><span class="link-desc">Character compressor with a unique sound. Huge range from subtle gluing to aggressive pumping. Great for drums and creative bus processing.</span></a>
           <a href="https://klanghelm.com/contents/products/MJUCjr" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">MJUC Jr. (Klanghelm)</span><span class="link-desc">Vari-mu tube compressor modeled after vintage hardware. Warm, musical compression for vocals, bass, and buses.</span></a>
@@ -869,7 +869,7 @@
       <div class="tools-modal-bg" @click="reverbModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-reverb">🔊 Free Reverb Plugins</h3><button @click="reverbModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://valhalladsp.com/shop/reverb/valhalla-supermassive/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Valhalla Supermassive</span><span class="link-desc">Massive reverb/delay hybrid with 18+ celestial modes. Huge ambient tails, warp effects, and near-zero CPU.</span></a>
           <a href="https://michaelwillis.com/dragonfly-reverb/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Dragonfly Reverb</span><span class="link-desc">Open-source algorithmic reverb with Hall, Plate, and Room algorithms. Smooth, natural, and extensively tweakable.</span></a>
           <a href="https://tal-software.com/products/tal-reverb-4" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TAL-Reverb-4</span><span class="link-desc">Vintage plate reverb modeled after classic hardware. Simple controls, low CPU, and a character that sits beautifully in dense mixes.</span></a>
@@ -884,7 +884,7 @@
       <div class="tools-modal-bg" @click="delayModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-delay">🕐 Free Delay Plugins</h3><button @click="delayModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://valhalladsp.com/shop/reverb/valhalla-supermassive/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Valhalla Supermassive</span><span class="link-desc">Also counts as a delay — feedback delay networks with delays up to 2 seconds. Slapbacks, ping-pong, and endless cascading echoes.</span></a>
           <a href="https://tal-software.com/products/tal-dub-x" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TAL-Dub-X</span><span class="link-desc">Tape echo emulation with modulation. Self-oscillation, wow & flutter, and a built-in filter.</span></a>
           <a href="https://www.mkultraaudio.com/nastydl" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">NastyDL (MKultra)</span><span class="link-desc">Dirty analog-style delay with drive, modulation, and filtering. Great for lo-fi and gritty delay textures.</span></a>
@@ -899,7 +899,7 @@
       <div class="tools-modal-bg" @click="satModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-sat">🔥 Free Saturation & Distortion Plugins</h3><button @click="satModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://www.softube.com/saturation-knob" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Softube Saturation Knob</span><span class="link-desc">One knob, instant analog warmth. Three modes (Clean, Warm, Dirt) covering everything from subtle tape saturation to crushed distortion.</span></a>
           <a href="https://aberrantdsp.com/plugins/ivgi2/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">IVGI2 (Aberrant DSP)</span><span class="link-desc">Saturation and distortion with asymmetric clipping. From subtle harmonic enhancement to aggressive fuzz.</span></a>
           <a href="https://varietyofsound.wordpress.com/downloads/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">FerricTDS (Variety of Sound)</span><span class="link-desc">Tape saturation plugin modeled after the Ferrofluid-based tape formulation. Rich, warm harmonic distortion.</span></a>
@@ -914,7 +914,7 @@
       <div class="tools-modal-bg" @click="synthModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-synth">🎹 Free Synth Plugins</h3><button @click="synthModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://vital.audio/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Vital (Matt Tytel)</span><span class="link-desc">Wavetable synth that rivals Serum. Visual modulation system, dual filters, integrated FX, and a massive preset community.</span></a>
           <a href="https://surge-synthesizer.github.io/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Surge XT</span><span class="link-desc">Open-source hybrid synth with wavetable, FM, and analog-style oscillators. Dual filters, built-in FX, and deep modulation.</span></a>
           <a href="https://asb2m10.github.io/dexed/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Dexed</span><span class="link-desc">Authentic Yamaha DX7 FM synthesis emulation. Loads original DX7 cartridges, deep 6-operator FM engine.</span></a>
@@ -931,7 +931,7 @@
       <div class="tools-modal-bg" @click="samplerModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-sampler">💿 Free Sampler & Instrument Plugins</h3><button @click="samplerModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://labs.spitfireaudio.com/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Spitfire LABS</span><span class="link-desc">Beautifully sampled instruments — strings, pianos, choirs, synths, and experimental textures. Free and commercially usable.</span></a>
           <a href="https://www.decentsamples.com/product/decent-sampler/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Decent Sampler</span><span class="link-desc">Free sample player that loads thousands of free sound libraries from the community. Huge ecosystem of free content.</span></a>
           <a href="https://sitala.org/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Sitala</span><span class="link-desc">Drum sampler with instant sample mapping. Drop samples on pads, adjust tuning and envelope, and play.</span></a>
@@ -946,7 +946,7 @@
       <div class="tools-modal-bg" @click="meterModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-meter">📈 Free Metering & Analyzer Plugins</h3><button @click="meterModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://youlean.co/youlean-loudness-meter/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">YouLean Loudness Meter</span><span class="link-desc">Industry standard for LUFS loudness metering. Integrated, short-term, momentary, and true peak.</span></a>
           <a href="https://www.voxengo.com/product/span/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">SPAN (Voxengo)</span><span class="link-desc">Real-time FFT spectrum analyzer with high precision and low CPU. Stereo/mid/side mode, peak hold.</span></a>
           <a href="https://www.tbproaudio.de/products/dpmeter5" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TBProAudio dpMeter 5</span><span class="link-desc">Full LUFS metering suite with integrated, short-term, momentary, and true peak. Supports stereo and surround.</span></a>
@@ -962,7 +962,7 @@
       <div class="tools-modal-bg" @click="utilityModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-utility">🔧 Free Utility Plugins — Limiters, Clippers & More</h3><button @click="utilityModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://vladgsound.wordpress.com/limiter6/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Limiter No.6 (Vladislav Goncharov)</span><span class="link-desc">Full-featured limiter/maximizer with five processing stages: RMS compressor, peak clipper, peak limiter, saturator, and output stage.</span></a>
           <a href="https://loudmax.blogspot.com/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">LoudMax (Christian Budde)</span><span class="link-desc">Simple, transparent brickwall limiter. Just threshold and output — no oversampling needed.</span></a>
           <a href="https://kazrog.com/products/kclip-zero" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">KClip Zero (Kazrog)</span><span class="link-desc">Transparent clipper for increasing loudness without pumping. Free version is a clean hard/soft clipper with lookahead.</span></a>
@@ -978,7 +978,7 @@
       <div class="tools-modal-bg" @click="modModal = false"></div>
       <div class="tools-modal-box">
         <div class="tools-modal-header"><h3 id="modal-title-mod">🔄 Free Modulation Plugins — Chorus, Flanger, Phaser</h3><button @click="modModal = false" class="tools-modal-close">×</button></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="tools-modal-link-list">
           <a href="https://tal-software.com/products/tal-chorus-lx" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TAL-Chorus-LX</span><span class="link-desc">Juno 60 chorus emulation with that thick, lush analog chorus sound. Three modes covering everything from subtle width to rich modulation.</span></a>
           <a href="https://www.bluecataudio.com/Products/Product_Chorus/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Blue Cat's Chorus</span><span class="link-desc">Clean, versatile chorus with rate, depth, mix, and delay controls. Four voices per channel.</span></a>
           <a href="https://www.bluecataudio.com/Products/Product_Flanger/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Blue Cat's Flanger</span><span class="link-desc">Classic flanger with feedback control, LFO shape selection, and stereo offset.</span></a>
@@ -992,13 +992,13 @@
 
   <!-- Distribution -->
   <div id="posting" class="panel">
-    <h2 class="panel-heading">📤 Posting — Distribution <span class="eyebrow" style="margin-left:8px;">Getting your music on platforms</span></h2>
+    <h2 class="panel-heading">📤 Posting — Distribution <span class="eyebrow">Getting your music on platforms</span></h2>
     <p class="section-note">To get your music on paid streaming platforms, you need a distributor. Here's what needs one and what doesn't.</p>
 
-    <div class="tools-smart-card" style="margin-top:16px;">
-      <h3 style="font-weight:600;display:flex;align-items:center;gap:8px;">ℹ️ You Only Need Distributors For</h3>
-      <p class="section-note" style="margin-top:8px;">A distributor delivers your music to the major paid streaming platforms that don't accept direct uploads from artists. These are the platforms you <strong style="color:var(--ink);">need a distributor for</strong>:</p>
-      <div class="tools-distroway" style="margin-top:12px;">
+    <div class="tools-smart-card">
+      <h3>ℹ️ You Only Need Distributors For</h3>
+      <p class="section-note">A distributor delivers your music to the major paid streaming platforms that don't accept direct uploads from artists. These are the platforms you <strong style="color:var(--ink);">need a distributor for</strong>:</p>
+      <div class="tools-distroway">
         <span class="tools-tag">🎵 Spotify</span>
         <span class="tools-tag">🎵 Apple Music</span>
         <span class="tools-tag">🎵 Amazon Music</span>
@@ -1009,16 +1009,16 @@
         <span class="tools-tag">🎵 Napster</span>
         <span class="tools-tag">🎵 iHeartRadio</span>
       </div>
-      <p class="section-note" style="margin-top:12px;">You upload your music to the distributor once — they handle delivery to every platform, collect royalties, and pay you out.</p>
+      <p class="section-note">You upload your music to the distributor once — they handle delivery to every platform, collect royalties, and pay you out.</p>
       <button @click="distroModal = true" style="margin-top:8px;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--purple);background:rgba(168,85,247,0.1);padding:6px 12px;border-radius:9999px;border:1px solid rgba(168,85,247,0.2);cursor:pointer;transition:all 0.2s;">
         ⚖️ Check %'s distros take
       </button>
     </div>
 
-    <div class="tools-smart-card" style="margin-top:12px;">
-      <h3 style="font-weight:600;display:flex;align-items:center;gap:8px;">🌐 Platforms You Can Post To Without a Distributor</h3>
-      <p class="section-note" style="margin-top:8px;">These let you upload music directly — great for building an audience before you invest in distribution.</p>
-      <div class="tools-distroway" style="margin-top:12px;">
+    <div class="tools-smart-card">
+      <h3>🌐 Platforms You Can Post To Without a Distributor</h3>
+      <p class="section-note">These let you upload music directly — great for building an audience before you invest in distribution.</p>
+      <div class="tools-distroway">
         <span class="tools-tag">🎬 YouTube</span>
         <span class="tools-tag">🎧 SoundCloud</span>
         <span class="tools-tag">🎵 Bandcamp</span>
@@ -1028,10 +1028,10 @@
       </div>
     </div>
 
-    <div class="tools-smart-card" style="margin-top:12px;">
-      <h3 style="font-weight:600;display:flex;align-items:center;gap:8px;">💡 The Smart Approach</h3>
-      <p class="section-note" style="margin-top:8px;">Start on SoundCloud, Bandcamp, and YouTube for free. Build an audience. Once you have traction and a few polished tracks, pick a distributor to get on Spotify and Apple Music. DistroKid is the best value for active releasers — unlimited uploads and 0% royalty cut at $24.99/year. If you want a single release and never pay again, CD Baby's one-time fee (9% royalty cut) is the better choice.</p>
-      <p class="section-note" style="margin-top:8px;">Most important: read the fine print on what happens if you stop paying. DistroKid removes your catalog unless you buy Leave a Legacy. CD Baby keeps it up forever — but takes 9% forever too.</p>
+    <div class="tools-smart-card">
+      <h3>💡 The Smart Approach</h3>
+      <p class="section-note">Start on SoundCloud, Bandcamp, and YouTube for free. Build an audience. Once you have traction and a few polished tracks, pick a distributor to get on Spotify and Apple Music. DistroKid is the best value for active releasers — unlimited uploads and 0% royalty cut at $24.99/year. If you want a single release and never pay again, CD Baby's one-time fee (9% royalty cut) is the better choice.</p>
+      <p class="section-note">Most important: read the fine print on what happens if you stop paying. DistroKid removes your catalog unless you buy Leave a Legacy. CD Baby keeps it up forever — but takes 9% forever too.</p>
     </div>
   </div>
 
@@ -1095,66 +1095,66 @@
 
   <!-- Communities -->
   <div id="connecting" class="panel">
-    <h2 class="panel-heading">👥 Connecting — Communities <span class="eyebrow" style="margin-left:8px;">Find your people</span></h2>
+    <h2 class="panel-heading">👥 Connecting — Communities <span class="eyebrow">Find your people</span></h2>
     <p class="section-note">Free, community-first places where artists connect, collab, and grow together. No paywalls, no gatekeepers — just real music communities.</p>
 
-    <div class="tools-community-grid" style="margin-top:16px;">
+    <div class="tools-community-grid">
       <div class="tools-community-card">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:500;font-size:14px;">NeverEndEver</span> <span style="margin-left:auto;font-size:10px;color:var(--purple);background:rgba(168,85,247,0.1);padding:2px 8px;border-radius:9999px;">We run this</span></div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Our own Discord server + Twitch channel. Weekly music reviews on stream, community playlist, collab finder, feedback exchange, and support from a tight-knit artist community.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
-          <a href="https://discord.gg/BjTPyRbHDr" target="_blank" rel="noopener noreferrer" style="font-size:10px;text-decoration:underline;">Discord</a>
-          <a href="https://www.twitch.tv/neverendever" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">Twitch</a>
+        <h4>NeverEndEver <span class="community-badge">We run this</span></h4>
+        <p>Our own Discord server + Twitch channel. Weekly music reviews on stream, community playlist, collab finder, feedback exchange, and support from a tight-knit artist community.</p>
+        <div class="community-links">
+          <a href="https://discord.gg/BjTPyRbHDr" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a href="https://www.twitch.tv/neverendever" target="_blank" rel="noopener noreferrer">Twitch</a>
         </div>
       </div>
 
       <div class="tools-community-card">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:500;font-size:14px;">🎵 Sesh.fm</span></div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Real-time collaborative DAW with a built-in community. Make music with anyone instantly in your browser — no download, no setup.</p>
-        <div style="margin-top:8px;"><a href="https://sesh.fm" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">sesh.fm</a></div>
+        <h4>🎵 Sesh.fm</h4>
+        <p>Real-time collaborative DAW with a built-in community. Make music with anyone instantly in your browser — no download, no setup.</p>
+        <div class="community-links"><a href="https://sesh.fm" target="_blank" rel="noopener noreferrer">sesh.fm</a></div>
       </div>
 
       <div class="tools-community-card">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:500;font-size:14px;">👥 United Underground</span></div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">A Discord community built by and for underground artists. Open verses, collab opportunities, honest track feedback, weekly challenges, cyphers, events, and promotion without spam.</p>
-        <div style="margin-top:8px;"><a href="https://discord.gg/undergroundunited" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">Discord</a></div>
+        <h4>👥 United Underground</h4>
+        <p>A Discord community built by and for underground artists. Open verses, collab opportunities, honest track feedback, weekly challenges, cyphers, events, and promotion without spam.</p>
+        <div class="community-links"><a href="https://discord.gg/undergroundunited" target="_blank" rel="noopener noreferrer">Discord</a></div>
       </div>
 
       <div class="tools-community-card">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:500;font-size:14px;">💬 Reddit Communities</span></div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Active music subreddits for feedback, collabs, and discussion. Post your tracks for honest critique, find producers to work with.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
-          <a href="https://reddit.com/r/makinghiphop" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">r/makinghiphop</a>
-          <a href="https://reddit.com/r/WeAreTheMusicMakers" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">r/WeAreTheMusicMakers</a>
-          <a href="https://reddit.com/r/edmproduction" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">r/edmproduction</a>
-          <a href="https://reddit.com/r/musicproduction" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">r/musicproduction</a>
+        <h4>💬 Reddit Communities</h4>
+        <p>Active music subreddits for feedback, collabs, and discussion. Post your tracks for honest critique, find producers to work with.</p>
+        <div class="community-links">
+          <a href="https://reddit.com/r/makinghiphop" target="_blank" rel="noopener noreferrer">r/makinghiphop</a>
+          <a href="https://reddit.com/r/WeAreTheMusicMakers" target="_blank" rel="noopener noreferrer">r/WeAreTheMusicMakers</a>
+          <a href="https://reddit.com/r/edmproduction" target="_blank" rel="noopener noreferrer">r/edmproduction</a>
+          <a href="https://reddit.com/r/musicproduction" target="_blank" rel="noopener noreferrer">r/musicproduction</a>
         </div>
       </div>
 
       <div class="tools-community-card">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:500;font-size:14px;">🎮 Producer Discords</span></div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Large active Discord servers focused on music production. Daily loop/MIDI drops, collab finders, feedback exchanges, weekly contests with prizes.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
-          <a href="https://discord.gg/daw" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">Prod.By (30k+)</a>
-          <a href="https://discord.gg/unison" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">Unison</a>
-          <a href="https://discord.gg/wsap" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">We Suck At Producing (30k+)</a>
+        <h4>🎮 Producer Discords</h4>
+        <p>Large active Discord servers focused on music production. Daily loop/MIDI drops, collab finders, feedback exchanges, weekly contests with prizes.</p>
+        <div class="community-links">
+          <a href="https://discord.gg/daw" target="_blank" rel="noopener noreferrer">Prod.By (30k+)</a>
+          <a href="https://discord.gg/unison" target="_blank" rel="noopener noreferrer">Unison</a>
+          <a href="https://discord.gg/wsap" target="_blank" rel="noopener noreferrer">We Suck At Producing (30k+)</a>
         </div>
       </div>
 
       <div class="tools-community-card">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:500;font-size:14px;">⚡ Twitch Music Streams</span></div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Live streams where artists react to music, host beat battles, and build community. Submit your tracks for live feedback.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
-          <a href="https://www.twitch.tv/neverendever" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">NeverEndEver</a>
-          <a href="https://www.twitch.tv/therippergames" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:var(--purple);text-decoration:underline;">TheRipperGames</a>
+        <h4>⚡ Twitch Music Streams</h4>
+        <p>Live streams where artists react to music, host beat battles, and build community. Submit your tracks for live feedback.</p>
+        <div class="community-links">
+          <a href="https://www.twitch.tv/neverendever" target="_blank" rel="noopener noreferrer">NeverEndEver</a>
+          <a href="https://www.twitch.tv/therippergames" target="_blank" rel="noopener noreferrer">TheRipperGames</a>
         </div>
       </div>
     </div>
 
     <!-- Tips for Connecting -->
-    <div class="tools-smart-card" style="margin-top:16px;">
-      <h3 style="font-weight:600;display:flex;align-items:center;gap:8px;">💡 Tips for Connecting</h3>
-      <ul class="tools-tips-list" style="margin-top:8px;">
+    <div class="tools-smart-card">
+      <h3>💡 Tips for Connecting</h3>
+      <ul class="tools-tips-list">
         <li>Be genuine — don't just drop links, actually participate in conversations</li>
         <li>Give feedback before asking for it — build relationships, not drive-by promo</li>
         <li>Join Discord voice chats and Twitch streams — that's where real connections happen</li>
@@ -1166,35 +1166,35 @@
 
   <!-- Sesh.fm Partner -->
   <div id="sesh" class="tools-partner-card">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+    <div class="tools-partner-head">
       <img src="https://sesh.fm/logos/color-logo-sm.webp" alt="Sesh" style="height:32px;">
       <h2>Sesh.fm</h2>
       <span class="partner-badge">Partner</span>
     </div>
     <p>A collaborative DAW that runs entirely in your browser. No downloads, no setup — just a link and you're making music with your crew in real time.</p>
-    <div style="display:grid;gap:16px;font-size:14px;margin-top:16px;">
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">👥 Real-Time Collaboration</h3>
+    <div class="tools-partner-grid">
+      <div class="tools-feature-item">
+        <h3>👥 Real-Time Collaboration</h3>
         <p class="section-note">Multiple people work on the same project simultaneously. See everyone's cursors, record together, and chat built right into the DAW.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">🎵 Full Production Suite</h3>
+      <div class="tools-feature-item">
+        <h3>🎵 Full Production Suite</h3>
         <p class="section-note">Beat making, pattern sequencing, pro-grade synthesis (Serum-level), hybrid step sequencer, collaborative piano roll, drag-and-drop arrangement, and mixing — all in the browser.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">🔗 One-Click Sharing</h3>
+      <div class="tools-feature-item">
+        <h3>🔗 One-Click Sharing</h3>
         <p class="section-note">Copy a project link and send it anywhere — Discord, WhatsApp, TikTok. They click, they're in. No account needed to listen.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">☁️ Cloud Library & Versioning</h3>
+      <div class="tools-feature-item">
+        <h3>☁️ Cloud Library & Versioning</h3>
         <p class="section-note">18,000+ royalty-free sounds. Auto-saved with unlimited version history — restore any previous snapshot in one click.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">🏆 Small Team, Artist-First</h3>
+      <div class="tools-feature-item">
+        <h3>🏆 Small Team, Artist-First</h3>
         <p class="section-note">Self-funded, no VC money. Free tier with unlimited collaborators. Pro at $5/mo unlocks unlimited projects, exports, and commercial rights.</p>
       </div>
     </div>
-    <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--pill-border);display:flex;flex-wrap:wrap;gap:8px;">
+    <div class="tools-partner-footer">
       <a href="https://sesh.fm" target="_blank" rel="noopener noreferrer" class="tools-btn tools-btn-primary">Visit Sesh.fm</a>
       <a href="https://sesh.fm/sign-up" target="_blank" rel="noopener noreferrer" class="tools-btn" style="background:var(--pill-bg);border:1px solid var(--pill-border);color:var(--purple);">Start Creating Free</a>
     </div>
@@ -1202,60 +1202,60 @@
 
   <!-- Type-o-cord Partner -->
   <div id="typeocord" class="tools-partner-card">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+    <div class="tools-partner-head">
       <h2>Type-o-cord</h2>
       <span class="partner-badge">Partner</span>
     </div>
     <p>A Discord text formatting tool by <a href="https://wintrboo.xyz" target="_blank" rel="noopener noreferrer" style="color:var(--purple);">WintrBoo</a> — combines text formatting and timestamp converting into one simple website. Made in collaboration with NeverEndEver.</p>
     <div class="tools-partner-grid">
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">🔤 Text Formatting</h3>
+      <div class="tools-feature-item">
+        <h3>🔤 Text Formatting</h3>
         <p class="section-note">Format messages with bold, italic, underline, strikethrough, headers, lists, quotes, code blocks, and links — all with a live Discord preview.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">🕐 Timestamp Converter</h3>
+      <div class="tools-feature-item">
+        <h3>🕐 Timestamp Converter</h3>
         <p class="section-note">Generate Discord timestamp tags for any date and time. Perfect for countdowns and event announcements.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">🎨 Custom Themes</h3>
+      <div class="tools-feature-item">
+        <h3>🎨 Custom Themes</h3>
         <p class="section-note">Personalize the editor with custom accent and secondary accent colors. Save your preferences and format in style.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">🔗 Masked Links</h3>
+      <div class="tools-feature-item">
+        <h3>🔗 Masked Links</h3>
         <p class="section-note">Insert masked Discord links with display text and URL — no need to remember the markdown syntax.</p>
       </div>
     </div>
-    <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--pill-border);display:flex;flex-wrap:wrap;gap:8px;">
+    <div class="tools-partner-footer">
       <a href="https://typeocord.com" target="_blank" rel="noopener noreferrer" class="tools-btn tools-btn-primary">Visit Type-o-cord</a>
     </div>
   </div>
 
   <!-- NoPings Partner -->
   <div id="nopings" class="tools-partner-card">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+    <div class="tools-partner-head">
       <h2>NoPings</h2>
       <span class="partner-badge">Partner</span>
     </div>
     <p>The best way to share your contact preferences. Let others know exactly when to reach you with a beautiful, personalized page — no sign-up required.</p>
     <div class="tools-partner-grid">
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">📅 Set Availability</h3>
+      <div class="tools-feature-item">
+        <h3>📅 Set Availability</h3>
         <p class="section-note">Choose if and when you want to be contacted. Set boundaries for friends, clients, or colleagues in seconds.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">📤 Instant Sharing</h3>
+      <div class="tools-feature-item">
+        <h3>📤 Instant Sharing</h3>
         <p class="section-note">Share your NoPings page instantly without signing up. Perfect for creators, freelancers, and small businesses.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">✨ Personalized Page</h3>
+      <div class="tools-feature-item">
+        <h3>✨ Personalized Page</h3>
         <p class="section-note">Tailor your page with your preferences and style. A paid plan with custom URLs is coming soon.</p>
       </div>
-      <div>
-        <h3 style="font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px;">🛡️ Zero Distractions</h3>
+      <div class="tools-feature-item">
+        <h3>🛡️ Zero Distractions</h3>
         <p class="section-note">Boost productivity by setting clear digital boundaries. Minimize unwanted interruptions and stay focused.</p>
       </div>
     </div>
-    <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--pill-border);display:flex;flex-wrap:wrap;gap:8px;">
+    <div class="tools-partner-footer">
       <a href="https://nopings.com" target="_blank" rel="noopener noreferrer" class="tools-btn tools-btn-primary">Visit NoPings</a>
     </div>
   </div>
@@ -1265,7 +1265,7 @@
     <h2 class="panel-heading">Recommended</h2>
     <div class="tools-recommended-grid">
       <div class="tools-recommended-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <div class="tools-rec-head">
           <h4>EQ Academy</h4>
           <span class="rec-source">by Mastering The Mix</span>
         </div>
@@ -1273,7 +1273,7 @@
         <a href="https://www.masteringthemix.com/products/eq-academy" target="_blank">Learn more →</a>
       </div>
       <div class="tools-recommended-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <div class="tools-rec-head">
           <h4>HISE</h4>
           <span class="rec-source">hise.dev</span>
         </div>
@@ -1281,7 +1281,7 @@
         <a href="https://hise.dev" target="_blank">Visit HISE →</a>
       </div>
       <div class="tools-recommended-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <div class="tools-rec-head">
           <h4>JUCE</h4>
           <span class="rec-source">juce.com</span>
         </div>
@@ -1289,7 +1289,7 @@
         <a href="https://juce.com" target="_blank">Visit JUCE →</a>
       </div>
       <div class="tools-recommended-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <div class="tools-rec-head">
           <h4>Cardinal</h4>
           <span class="rec-source">cardinal.kx.studio</span>
         </div>
