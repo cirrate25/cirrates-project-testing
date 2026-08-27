@@ -1972,7 +1972,7 @@ footer { display: flex; justify-content: space-between; gap: 18px; padding: 30px
 #panel-tools::-webkit-scrollbar-track { background: transparent; }
 #panel-tools::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
 .tools-panel-content { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 200; }
-.tools-panel-content .panel { background: var(--panel-bg); border: 1px solid var(--pill-border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 20px var(--shadow-soft); }
+.tools-panel-content .panel { background: var(--panel-bg); border: 1px solid var(--pill-border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 20px var(--shadow-soft); backdrop-filter: none; }
 .tools-panel-content .panel-heading { margin-bottom: 16px; }
 .tools-panel-content .section-note { max-width: none; text-align: left; font-size: .78rem; margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
 .tools-grid-5 { margin-top: 16px; }
