@@ -1257,16 +1257,17 @@ body::after {
   filter: blur(8px);
   opacity: .6;
 }
-/* Foreground ripples drift one way, a finer background layer drifts the
-   other way underneath it — two speeds reads as real water motion instead
-   of one flat scrolling stripe. */
+/* Two static ripple layers give the water some texture without costing
+   anything per-frame — animating background-position here was a no-op
+   (the stripe pattern is horizontally uniform, so sliding it sideways
+   produced zero visible motion while still repainting the full-screen
+   backdrop every frame). The sparkle layer below carries all the motion. */
 .scene-waves {
   position: absolute;
   inset: 0;
   background-image: repeating-linear-gradient(180deg, rgb(255 255 255 / .1) 0 2px, transparent 2px 18px);
   background-size: 240px 100%;
   opacity: .65;
-  animation: wave-drift 6s linear infinite;
 }
 .scene-waves::before {
   content: "";
@@ -1275,20 +1276,28 @@ body::after {
   background-image: repeating-linear-gradient(180deg, rgb(255 255 255 / .16) 0 1px, transparent 1px 10px);
   background-size: 150px 100%;
   opacity: .45;
-  animation: wave-drift 3.4s linear infinite reverse;
 }
+/* Sparkle layer: the only one that actually needs to move (radial dots
+   vary in both axes, so motion is real here). Driven by `transform`
+   instead of `background-position` so Chrome can run it on the
+   compositor thread instead of repainting every frame, and dropped
+   `mix-blend-mode` (forces layer merging every frame) for a plain
+   translucent overlay instead. */
 .scene-waves::after {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% + 180px);
   background-image:
-    radial-gradient(circle, rgb(255 255 255 / .5) 0 1.5px, transparent 1.5px),
-    radial-gradient(circle, rgb(255 255 255 / .35) 0 1px, transparent 1px);
+    radial-gradient(circle, rgb(255 255 255 / .4) 0 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgb(255 255 255 / .28) 0 1px, transparent 1px);
   background-size: 90px 46px, 60px 34px;
   background-position: 0 0, 30px 18px;
-  mix-blend-mode: screen;
   opacity: .5;
-  animation: glint-drift 9s linear infinite;
+  animation: sparkle-drift 9s linear infinite;
+  will-change: transform;
 }
 
 .scene-city {
@@ -1335,7 +1344,25 @@ body::after {
 .antenna-light:nth-child(odd) { animation-delay: -1.5s; }
 
 .scene-palms { position: absolute; inset: 0; }
-.palm { position: absolute; bottom: -2%; filter: drop-shadow(0 6px 10px rgb(0 0 0 / .25)); }
+.palm { position: absolute; bottom: -2%; will-change: transform; }
+/* A static blurred ellipse stands in for a drop-shadow here — a real
+   filter:drop-shadow on an element that's also transform-animated (this
+   one sways, and its fronds sway individually inside it) forces Chrome to
+   re-rasterize the whole shape in software every frame instead of just
+   compositing a cached layer. This shadow is a plain, non-animated,
+   GPU-cheap element instead. */
+.palm::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 30%;
+  height: 10px;
+  transform: translateX(-50%);
+  background: rgb(0 0 0 / .28);
+  border-radius: 50%;
+  filter: blur(4px);
+}
 .palm svg { display: block; height: 100%; width: auto; }
 .palm-left { left: 5%; height: 56vh; min-height: 340px; animation: palm-sway-left 6s ease-in-out infinite; transform-origin: bottom center; }
 .palm-right { right: 5%; height: 48vh; min-height: 290px; transform: scaleX(-1); animation: palm-sway-right 7s ease-in-out infinite; transform-origin: bottom center; }
@@ -1383,8 +1410,7 @@ body::after {
   0%, 40%, 100% { opacity: .8; }
   50%, 60% { opacity: .15; }
 }
-@keyframes wave-drift { from { background-position: 0 0; } to { background-position: -220px 0; } }
-@keyframes glint-drift { 0% { background-position: 0 0, 30px 18px; opacity: .35; } 50% { opacity: .65; } 100% { background-position: 400px 0, 430px 18px; opacity: .35; } }
+@keyframes sparkle-drift { from { transform: translateX(0); } to { transform: translateX(-180px); } }
 @keyframes city-drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 @media (prefers-reduced-motion: reduce) {
