@@ -1189,18 +1189,34 @@ body::after {
   border-radius: 50%;
   overflow: hidden;
   background: radial-gradient(circle at 50% 32%, var(--sun-core) 0%, var(--sun-mid) 42%, var(--sun-edge) 72%, var(--sun-rim) 100%);
-  box-shadow:
-    0 0 60px 20px var(--sun-glow-a),
-    0 0 130px 45px var(--sun-glow-a),
-    0 0 260px 90px var(--sun-glow-b),
-    0 0 400px 150px var(--sun-glow-b);
-  animation: sun-glow 7s ease-in-out infinite;
 }
 .scene-sun::before {
   content: "";
   position: absolute;
   inset: 0;
   background: repeating-linear-gradient(0deg, transparent 0 9px, var(--sun-line) 9px 15px);
+}
+/* The glow used to be four animated box-shadow rings (up to 400px blur +
+   150px spread) — box-shadow is a paint-time property, so that redrew a
+   ~1000px halo around the sun every single frame, forever, on an element
+   that's always visible. This does the same visual job with a layered
+   radial-gradient, animated only via `transform`/`opacity` — both run on
+   the compositor thread, so the cost drops to essentially nothing. */
+.scene-sun-glow {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, var(--sun-glow-a) 0%, var(--sun-glow-a) 14%, transparent 30%),
+    radial-gradient(circle, var(--sun-glow-b) 0%, transparent 55%);
+  opacity: .55;
+  animation: sun-glow 7s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 .scene-sun::after {
   content: "";
@@ -1399,8 +1415,8 @@ body::after {
 }
 
 @keyframes sun-glow {
-  0%, 100% { box-shadow: 0 0 60px 20px var(--sun-glow-a), 0 0 130px 45px var(--sun-glow-a), 0 0 260px 90px var(--sun-glow-b), 0 0 400px 150px var(--sun-glow-b); }
-  50% { box-shadow: 0 0 80px 30px var(--sun-glow-a), 0 0 165px 60px var(--sun-glow-a), 0 0 300px 110px var(--sun-glow-b), 0 0 450px 180px var(--sun-glow-b); }
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .45; }
+  50% { transform: translate(-50%, -50%) scale(1.35); opacity: .7; }
 }
 @keyframes sun-halo {
   0%, 100% { opacity: .25; transform: scale(1); }
@@ -1414,14 +1430,14 @@ body::after {
 @keyframes city-drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .scene-sun, .scene-waves, .scene-waves::before, .scene-waves::after, .city-track, .antenna-light, .scene-sun::after, .palm, .palm .palm-fronds .frond { animation: none; }
+  .scene-sun-glow, .scene-waves, .scene-waves::after, .city-track, .antenna-light, .scene-sun::after, .palm, .palm .palm-fronds .frond { animation: none; }
 }
 
 @media (max-width: 720px) {
   /* Keep inputs/selects at 16px+ on touch so iOS Safari doesn't
      auto-zoom the page when a field is focused. */
   input, select, textarea { font-size: 16px !important; }
-  .scene-sun { width: 200px; height: 200px; top: 14%; }
+  .scene-sun, .scene-sun-glow { width: 200px; height: 200px; top: 14%; }
   .scene-city { height: 34vh; min-height: 220px; }
   .palm-left { height: 38vh; min-height: 240px; }
   .palm-right { height: 30vh; min-height: 200px; }
