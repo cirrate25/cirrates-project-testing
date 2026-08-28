@@ -45,81 +45,39 @@ const DISCORD_SERVER_ID = "";
 /* =====================================================================
    SEED CATEGORIES
    ===================================================================== */
-/* Tag vocabulary used by the filter chips:
-     price     free | paid
-     platform  browser | win | mac | linux | mobile
-     level     beginner
-   Section tags apply to every link in the section. A third entry on a link
-   overrides its section tags *within the same group*:
-     ["Vital", "vital.audio", "free win mac linux"]
-   `aliases` feed the fuzzy search, so "daw" finds "Digital Audio Workstations"
-   and "abelton" still finds Ableton. `verified` is the last hand-check date;
-   tools/check-links.mjs can overwrite it via link-status.json. */
-const DEFAULT_VERIFIED = "2026-08-20";
-
+/* Tags per link: a mix of "free"/"paid" and platform ("win","mac","browser").
+   These are a best-effort pass based on how each product is generally sold —
+   review and adjust freely, especially for tools with tiered free/paid plans. */
 const sections = [
-  { title: "Paid Plugin & Instrument Stores", icon: "🎛", eyebrow: "VST / AU / AAX · COMMERCIAL",
-    tags: "paid win mac", verified: "2026-08-20",
-    aliases: ["vst", "vst3", "au", "aax", "plugin", "plugins", "instrument", "instruments", "store", "shop", "buy", "synth", "synths", "sample library"],
-    links: [
-    ["Plugin Boutique", "pluginboutique.com", "paid free"], ["Native Instruments", "native-instruments.com", "paid free"], ["Sounds Online (EastWest)", "soundsonline.com"], ["Vienna Symphonic Library", "vsl.co.at"], ["Musio", "musio.com"], ["Initial Audio", "initialaudio.com"], ["Spitfire Audio", "spitfireaudio.com", "paid free"], ["Steinberg", "steinberg.net"], ["Vital Audio", "vital.audio", "free win mac linux beginner"], ["Cherry Audio", "cherryaudio.com"], ["United Plugins", "unitedplugins.com"], ["Angelic Vibes", "angelicvibes.com"], ["Producer Planet", "producerplanet.com"], ["Purafied", "purafied.com"], ["Auditory Lab", "auditory-lab.com"], ["Klevgrand", "klevgrand.com"], ["Cableguys ShaperBox", "cableguys.com"], ["Vocaloid", "vocaloid.com"], ["Solemn Tones", "solemntones.com"], ["IK Multimedia", "ikmultimedia.com", "paid free"], ["Korg", "korg.com"], ["Spectrasonics", "spectrasonics.net"], ["MeldaProduction", "meldaproduction.com", "paid free"], ["KVR Audio", "kvraudio.com", "free browser"], ["Bedroom Producers Blog", "bedroomproducersblog.com", "free browser beginner"], ["Sweetwater · Guitar Rig 7 Pro", "sweetwater.com", "paid browser"], ["B&H · Guitar Rig 7 Pro", "bhphotovideo.com", "paid browser"]
+  { title: "Paid Plugin & Instrument Stores", icon: "🎛", eyebrow: "VST / AU / AAX · COMMERCIAL", links: [
+    ["Plugin Boutique", "pluginboutique.com", ["paid","win","mac"]], ["Native Instruments", "native-instruments.com", ["paid","win","mac"]], ["Sounds Online (EastWest)", "soundsonline.com", ["paid","win","mac"]], ["Vienna Symphonic Library", "vsl.co.at", ["paid","win","mac"]], ["Musio", "musio.com", ["paid","win","mac"]], ["Initial Audio", "initialaudio.com", ["paid","win","mac"]], ["Spitfire Audio", "spitfireaudio.com", ["paid","win","mac"]], ["Steinberg", "steinberg.net", ["paid","win","mac"]], ["Vital Audio", "vital.audio", ["free","paid","win","mac"]], ["Cherry Audio", "cherryaudio.com", ["paid","win","mac"]], ["United Plugins", "unitedplugins.com", ["paid","win","mac"]], ["Angelic Vibes", "angelicvibes.com", ["paid","win","mac"]], ["Producer Planet", "producerplanet.com", ["paid","win","mac"]], ["Purafied", "purafied.com", ["paid","win","mac"]], ["Auditory Lab", "auditory-lab.com", ["paid","win","mac"]], ["Klevgrand", "klevgrand.com", ["paid","win","mac"]], ["Cableguys ShaperBox", "cableguys.com", ["paid","win","mac"]], ["Vocaloid", "vocaloid.com", ["paid","win","mac"]], ["Solemn Tones", "solemntones.com", ["paid","win","mac"]], ["IK Multimedia", "ikmultimedia.com", ["paid","win","mac"]], ["Korg", "korg.com", ["paid","win","mac"]], ["Spectrasonics", "spectrasonics.net", ["paid","win","mac"]], ["MeldaProduction", "meldaproduction.com", ["free","paid","win","mac"]], ["KVR Audio", "kvraudio.com", ["free","browser"]], ["Bedroom Producers Blog", "bedroomproducersblog.com", ["free","browser"]], ["Sweetwater · Guitar Rig 7 Pro", "sweetwater.com", ["paid","win","mac"]], ["B&H · Guitar Rig 7 Pro", "bhphotovideo.com", ["paid","win","mac"]]
   ]},
-  { title: "Free Plugins", icon: "✦", eyebrow: "NOTHING TO PAY · START HERE",
-    tags: "free win mac", verified: "2026-08-20",
-    aliases: ["free", "freeware", "no cost", "plugin", "plugins", "vst", "reverb", "delay", "synth", "eq", "compressor", "beginner"],
-    links: [
-    ["Valhalla DSP · reverb & delay", "valhalladsp.com", "free win mac beginner"], ["Surge Synth Team", "surge-synthesizer.github.io", "free win mac linux"], ["Vital · wavetable synth", "vital.audio", "free win mac linux beginner"], ["Dexed · FM synth", "asb2m10.github.io/dexed", "free win mac linux"], ["Decent Sampler", "decentsamples.com", "free win mac beginner"], ["Plugin Boutique · free section", "pluginboutique.com", "free browser"]
+  { title: "Free Plugins", icon: "✦", eyebrow: "NOTHING TO PAY · START HERE", links: [
+    ["Valhalla DSP · reverb & delay", "valhalladsp.com", ["free","win","mac"]], ["Surge Synth Team", "surge-synthesizer.github.io", ["free","win","mac"]], ["Vital · wavetable synth", "vital.audio", ["free","win","mac"]], ["Dexed · FM synth", "asb2m10.github.io/dexed", ["free","win","mac"]], ["Decent Sampler", "decentsamples.com", ["free","win","mac"]], ["Plugin Boutique · free section", "pluginboutique.com", ["free","browser"]]
   ]},
-  { title: "Free & Paid Mixed Catalogues", icon: "◒", eyebrow: "FREEBIES PLUS PREMIUM LINES",
-    tags: "free paid win mac", verified: "2026-08-20",
-    aliases: ["mixed", "catalogue", "catalog", "plugin", "plugins", "mastering", "eq", "compressor", "vocal", "voice"],
-    links: [
-    ["Tokyo Dawn Labs", "tokyodawn.net", "free paid win mac"], ["Dreamtonics", "dreamtonics.com", "paid win mac"], ["Roland", "roland.com"], ["Audio Plugin Deals", "audioplugin.deals", "paid browser"], ["Sonuscore", "sonuscore.com", "paid"], ["lkjb Plugins · QRange", "lkjb.net", "free win mac"], ["Auburn Sounds", "auburnsounds.com", "free paid win mac linux"], ["Voxengo", "voxengo.com", "free paid win mac"]
+  { title: "Free & Paid Mixed Catalogues", icon: "◒", eyebrow: "FREEBIES PLUS PREMIUM LINES", links: [
+    ["Tokyo Dawn Labs", "tokyodawn.net", ["free","paid","win","mac"]], ["Dreamtonics", "dreamtonics.com", ["paid","win","mac"]], ["Roland", "roland.com", ["free","paid","win","mac"]], ["Audio Plugin Deals", "audioplugin.deals", ["free","browser"]], ["Sonuscore", "sonuscore.com", ["paid","win","mac"]], ["lkjb Plugins · QRange", "lkjb.net", ["free","win","mac"]], ["Auburn Sounds", "auburnsounds.com", ["free","paid","win","mac"]], ["Voxengo", "voxengo.com", ["free","paid","win","mac"]]
   ]},
-  { title: "DAWs", icon: "▣", eyebrow: "WHERE THE WORK ACTUALLY HAPPENS",
-    tags: "paid win mac", verified: "2026-08-20",
-    aliases: ["daw", "digital audio workstation", "sequencer", "recording software", "production software", "studio", "beat making"],
-    links: [
-    ["Logic Pro", "apple.com/logic-pro", "paid mac"], ["Ableton Live", "ableton.com", "paid win mac"], ["FL Studio", "image-line.com", "paid win mac beginner"], ["REAPER", "reaper.fm", "paid win mac linux"], ["Bitwig Studio", "bitwig.com", "paid win mac linux"], ["Steinberg · Cubase, Nuendo, Dorico & more", "steinberg.net", "paid win mac"], ["BandLab · make music online", "bandlab.com", "free browser mobile beginner"], ["Sesh", "sesh.fm", "free browser beginner"], ["Music Maker", "magix.com", "paid win beginner"], ["LA Studio · browser editor", "la-studio.cc", "free browser"]
+  { title: "DAWs", icon: "▣", eyebrow: "WHERE THE WORK ACTUALLY HAPPENS", links: [
+    ["Logic Pro", "apple.com/logic-pro", ["paid","mac"]], ["Ableton Live", "ableton.com", ["paid","win","mac"]], ["FL Studio", "image-line.com", ["paid","win","mac"]], ["REAPER", "reaper.fm", ["paid","win","mac"]], ["Bitwig Studio", "bitwig.com", ["paid","win","mac"]], ["Steinberg · Cubase, Nuendo, Dorico & more", "steinberg.net", ["paid","win","mac"]], ["BandLab · make music online", "bandlab.com", ["free","browser","beginner"]], ["Sesh", "sesh.fm", ["free","browser"]], ["Music Maker", "magix.com", ["free","paid","win"]], ["LA Studio · browser editor", "la-studio.cc", ["free","browser","beginner"]]
   ]},
-  { title: "Marketplaces, Samples & Services", icon: "◎", eyebrow: "SELL BEATS, HIRE PEOPLE, GET SOUNDS",
-    tags: "paid browser", verified: "2026-08-20",
-    aliases: ["sample", "samples", "sample pack", "loops", "stems", "beat", "beats", "marketplace", "mixing service", "mastering service", "hire", "session"],
-    links: [
-    ["BeatStars · beat marketplace", "beatstars.com", "free browser beginner"], ["SoundBetter · mixing & mastering", "soundbetter.com", "paid browser"], ["AirGigs · remote producers", "airgigs.com", "paid browser"], ["Splice · samples", "splice.com", "paid browser win mac"], ["ProducerHive · mixing tips", "producerhive.com", "free browser beginner"], ["NCH · DJ mixing program", "nch.com.au", "paid win"]
+  { title: "Marketplaces, Samples & Services", icon: "◎", eyebrow: "SELL BEATS, HIRE PEOPLE, GET SOUNDS", links: [
+    ["BeatStars · beat marketplace", "beatstars.com", ["free","browser"]], ["SoundBetter · mixing & mastering", "soundbetter.com", ["free","browser"]], ["AirGigs · remote producers", "airgigs.com", ["free","browser"]], ["Splice · samples", "splice.com", ["paid","browser"]], ["ProducerHive · mixing tips", "producerhive.com", ["free","browser"]], ["NCH · DJ mixing program", "nch.com.au", ["paid","win"]]
   ]},
-  { title: "Browser Tools & Practice", icon: "⌁", eyebrow: "NO INSTALL NEEDED",
-    tags: "free browser beginner", verified: "2026-08-20",
-    aliases: ["browser", "online", "web", "no install", "practice", "ear training", "metronome", "tuner", "converter"],
-    links: [
-    ["RecordingLab · practice mixing", "recordinglab.app"], ["AudioWrench · browser DAW", "audiowrench.com"], ["12NOTEZ · metronome, tuner, tanpura", "12notez.com"], ["123apps · audio, video, PDF convert", "123apps.com"]
+  { title: "Browser Tools & Practice", icon: "⌁", eyebrow: "NO INSTALL NEEDED", links: [
+    ["RecordingLab · practice mixing", "recordinglab.app", ["free","browser","beginner"]], ["AudioWrench · browser DAW", "audiowrench.com", ["free","browser"]], ["12NOTEZ · metronome, tuner, tanpura", "12notez.com", ["free","browser","beginner"]], ["123apps · audio, video, PDF convert", "123apps.com", ["free","browser","beginner"]]
   ]},
-  { title: "Recording & Voice Capture", icon: "●", eyebrow: "PC AND ONLINE RECORDERS",
-    tags: "win browser", verified: "2026-08-20",
-    aliases: ["record", "recording", "recorder", "vocals", "voice", "mic", "microphone", "screen capture"],
-    links: [
-    ["RecordPad · HQ audio recorder", "nch.com.au", "paid win"], ["Rev · online voice recorder", "rev.com", "free browser"], ["Vocaroo", "vocaroo.com", "free browser beginner"], ["SpeakPipe · free recorder", "speakpipe.com", "free browser beginner"], ["NCH Capture · screen recorder", "nchsoftware.com", "paid win"]
+  { title: "Recording & Voice Capture", icon: "●", eyebrow: "PC AND ONLINE RECORDERS", links: [
+    ["RecordPad · HQ audio recorder", "nch.com.au", ["free","paid","win"]], ["Rev · online voice recorder", "rev.com", ["free","browser"]], ["Vocaroo", "vocaroo.com", ["free","browser","beginner"]], ["SpeakPipe · free recorder", "speakpipe.com", ["free","browser","beginner"]], ["NCH Capture · screen recorder", "nchsoftware.com", ["free","paid","win"]]
   ]},
-  { title: "Paint.net", icon: "◉", eyebrow: "COVER ART",
-    tags: "free win", verified: "2026-08-20",
-    aliases: ["art", "cover art", "artwork", "image", "images", "graphics", "photo", "design", "thumbnail", "logo", "paint"],
-    links: [
-    ["Paint.net", "getpaint.net", "free win beginner"], ["Photopea", "photopea.com", "free browser beginner"], ["GIMP", "gimp.org", "free win mac linux"], ["Krita", "krita.org", "free win mac linux"], ["Canva", "canva.com", "free browser beginner"], ["Pixlr", "pixlr.com", "free browser beginner"], ["PhotoDirector 365", "cyberlink.com", "paid win mac"]
+  { title: "Paint.net", icon: "◉", eyebrow: "COVER ART", links: [
+    ["Paint.net", "getpaint.net", ["free","win","beginner"]], ["Photopea", "photopea.com", ["free","browser","beginner"]], ["GIMP", "gimp.org", ["free","win","mac"]], ["Krita", "krita.org", ["free","win","mac"]], ["Canva", "canva.com", ["free","paid","browser","beginner"]], ["Pixlr", "pixlr.com", ["free","paid","browser"]], ["PhotoDirector 365", "cyberlink.com", ["paid","win","mac"]]
   ]},
-  { title: "Video Editing", icon: "▷", eyebrow: "VISUALS & MUSIC VIDEOS",
-    tags: "paid win", verified: "2026-08-20",
-    aliases: ["video", "video editing", "visuals", "music video", "clip", "editor", "youtube"],
-    links: [
-    ["PowerDirector", "cyberlink.com", "paid win mac"], ["NCH Capture", "nchsoftware.com", "paid win"], ["123apps Video Editor", "123apps.com", "free browser beginner"]
+  { title: "Video Editing", icon: "▷", eyebrow: "VISUALS & MUSIC VIDEOS", links: [
+    ["PowerDirector", "cyberlink.com", ["paid","win","mac"]], ["NCH Capture", "nchsoftware.com", ["free","paid","win"]], ["123apps Video Editor", "123apps.com", ["free","browser"]]
   ]},
-  { title: "Files, Stems & Sample Packs", icon: "📦", eyebrow: "DROP ANY FILE LINK — MP3 WAV ZIP MID",
-    tags: "free", verified: "2026-08-20",
-    aliases: ["file", "files", "stems", "sample pack", "packs", "download", "mp3", "wav", "zip", "midi", "flp"],
-    links: [] },
-  { title: "Wallpapers & Backgrounds", icon: "🖼️", eyebrow: "VISUAL LINKS FOR EVERYONE",
-    tags: "free browser", verified: "2026-08-20",
-    aliases: ["wallpaper", "wallpapers", "background", "backgrounds", "theme", "image"],
-    links: [] }
+  { title: "Files, Stems & Sample Packs", icon: "📦", eyebrow: "DROP ANY FILE LINK — MP3 WAV ZIP MID", links: [] },
+  { title: "Wallpapers & Backgrounds", icon: "🖼️", eyebrow: "VISUAL LINKS FOR EVERYONE", links: [] }
 ];
 
 /* =====================================================================
@@ -336,301 +294,59 @@ const resourceGrid = $("#resource-grid");
 const searchInput = $("#resource-search");
 const searchResult = $("#search-result");
 const totalLinksEl = $("#total-links");
+const filterBar = $("#filter-bar");
 
-/* =====================================================================
-   TAGS & FILTERS
-   ===================================================================== */
-const PRICE_TAGS = ["free", "paid"];
-const PLATFORM_TAGS = ["browser", "win", "mac", "linux", "mobile"];
-const LEVEL_TAGS = ["beginner"];
-const TAG_GROUPS = [PRICE_TAGS, PLATFORM_TAGS, LEVEL_TAGS];
-const TAG_LABELS = { free: "Free", paid: "Paid", browser: "Browser", win: "Windows", mac: "Mac", linux: "Linux", mobile: "Mobile", beginner: "Beginner" };
-
-const activeFilters = new Set();
-let sortMode = "default";
-
-function parseTags(value) {
-  if (!value) return [];
-  const list = Array.isArray(value) ? value : String(value).split(/[\s,]+/);
-  return list.map((tag) => tag.trim().toLowerCase()).filter(Boolean);
-}
-/* A link's own tags win inside their group; everything else is inherited
-   from the section, so "free win mac" on a link doesn't lose "beginner". */
-function mergeTags(own, base) {
-  const out = new Set(own);
-  for (const tag of base) {
-    const group = TAG_GROUPS.find((g) => g.includes(tag));
-    if (group && own.some((o) => group.includes(o))) continue;
-    out.add(tag);
-  }
-  return [...out];
-}
-function matchesFilters(tags) {
-  if (!activeFilters.size) return true;
-  const set = new Set(tags);
-  for (const group of TAG_GROUPS) {
-    const picked = group.filter((tag) => activeFilters.has(tag));
-    if (picked.length && !picked.some((tag) => set.has(tag))) return false;
-  }
-  return true;
-}
-function tagMarkup(tags) {
-  const shown = ["free", "paid", "browser", "beginner"].filter((tag) => tags.includes(tag)).slice(0, 3);
-  if (!shown.length) return "";
-  return `<span class="link-tags">${shown.map((tag) => `<span class="link-tag tag-${tag}">${TAG_LABELS[tag]}</span>`).join("")}</span>`;
-}
-
-/* =====================================================================
-   FUZZY SEARCH — typo tolerant, with per-category synonyms
-   ===================================================================== */
-const SYNONYMS = {
-  daw: ["digital audio workstation", "sequencer", "recording software", "ableton", "fl studio", "logic", "reaper", "cubase", "bitwig"],
-  plugin: ["vst", "vst3", "au", "aax", "effect", "effects"],
-  vst: ["plugin", "plugins", "vst3"],
-  eq: ["equalizer", "equalisation", "equalization", "filter"],
-  compressor: ["compression", "dynamics", "limiter"],
-  reverb: ["space", "room", "hall", "plate"],
-  synth: ["synthesizer", "synthesiser", "wavetable", "fm"],
-  sample: ["samples", "sample pack", "loops", "stems", "one shots"],
-  art: ["artwork", "cover art", "image", "graphics", "design", "paint"],
-  video: ["video editing", "visuals", "music video"],
-  mic: ["microphone", "recording", "vocals", "voice"],
-  free: ["freeware", "no cost", "gratis"],
-  cheap: ["free", "budget", "affordable"],
-  mixing: ["mix", "mastering", "master"],
-  wallpaper: ["wallpapers", "background", "backgrounds"],
-  browser: ["online", "web", "no install", "in browser"],
-  beginner: ["starter", "easy", "beginner friendly", "new"],
-  distribution: ["distributor", "distro", "spotify", "release"]
-};
-
-function normalizeText(value) {
-  return String(value || "").toLowerCase().replace(/[^a-z0-9\s.]+/g, " ").replace(/\s+/g, " ").trim();
-}
-function editDistance(a, b) {
-  // Damerau-Levenshtein: a swapped pair ("abelton", "revreb") costs 1, not 2.
-  const rows = a.length + 1, cols = b.length + 1;
-  const grid = Array.from({ length: rows }, (_, i) => Array.from({ length: cols }, (_, j) => (i === 0 ? j : j === 0 ? i : 0)));
-  for (let i = 1; i < rows; i++) {
-    for (let j = 1; j < cols; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      grid[i][j] = Math.min(grid[i - 1][j] + 1, grid[i][j - 1] + 1, grid[i - 1][j - 1] + cost);
-      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
-        grid[i][j] = Math.min(grid[i][j], grid[i - 2][j - 2] + 1);
-      }
-    }
-  }
-  return grid[rows - 1][cols - 1];
-}
-function expandToken(token) {
-  const out = new Set([token]);
-  for (const [key, words] of Object.entries(SYNONYMS)) {
-    if (key === token || words.includes(token)) {
-      out.add(key);
-      for (const word of words) out.add(word);
-    }
-  }
-  return [...out];
-}
-/* 1 = literal hit, .85 = synonym, .8 = prefix, .65 = typo within edit distance */
-function tokenScore(token, haystack) {
-  let best = 0;
-  for (const variant of expandToken(token)) {
-    if (!variant) continue;
-    if (haystack.includes(variant)) { best = Math.max(best, variant === token ? 1 : 0.85); continue; }
-    if (variant.includes(" ") || variant.length < 3) continue;
-    for (const word of haystack.split(/[^a-z0-9]+/)) {
-      if (!word) continue;
-      if (word.startsWith(variant)) { best = Math.max(best, 0.8); continue; }
-      if (variant.length >= 4 && Math.abs(word.length - variant.length) <= 2) {
-        const limit = variant.length >= 6 ? 2 : 1;
-        if (editDistance(variant, word) <= limit) best = Math.max(best, 0.65);
-      }
-    }
-  }
-  return best;
-}
-function fuzzyScore(query, haystack) {
-  const tokens = normalizeText(query).split(" ").filter(Boolean);
-  if (!tokens.length) return 1;
-  let total = 0, exact = 0;
-  for (const token of tokens) {
-    const score = tokenScore(token, haystack);
-    if (!score) return 0;
-    total += score;
-    if (score === 1) exact += 1;
-  }
-  return total / tokens.length + exact * 0.001;
-}
-
-/* =====================================================================
-   CLICK TRACKING — local by default; add the Supabase function below
-   and every open is counted board-wide too.
-
-     create table link_clicks (
-       url text primary key,
-       clicks bigint not null default 0,
-       updated_at timestamptz default now()
-     );
-     alter table link_clicks enable row level security;
-     create policy "public read clicks" on link_clicks for select using (true);
-     create or replace function bump_link_click(p_url text)
-       returns void language sql security definer as $$
-         insert into link_clicks (url, clicks) values (p_url, 1)
-         on conflict (url) do update set clicks = link_clicks.clicks + 1, updated_at = now();
-       $$;
-   ===================================================================== */
+let activeFilter = "all";
+let checkedDates = {};
 const clicksStorageKey = "music-production-resource-clicks";
+let clickCounts = readJson(clicksStorageKey, {});
 
-function monthStamp() {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+function normalizedUrlKey(href) {
+  try {
+    const u = new URL(href);
+    return (u.hostname.replace(/^www\./, "") + u.pathname).replace(/\/$/, "").toLowerCase();
+  } catch { return href; }
 }
-function getClicks() {
-  const data = readJson(clicksStorageKey, {});
-  return data && typeof data === "object" && !Array.isArray(data) ? data : {};
-}
-function clickStats(url) {
-  const parsed = safeUrl(url);
-  const entry = parsed ? getClicks()[parsed.href] : null;
-  if (!entry) return { total: 0, month: 0 };
-  return { total: entry.t || 0, month: entry.m === monthStamp() ? entry.c || 0 : 0 };
-}
-function bumpClick(url, name) {
-  const parsed = safeUrl(url);
-  if (!parsed) return;
-  const clicks = getClicks();
-  const key = parsed.href;
-  const month = monthStamp();
-  const entry = clicks[key] || { t: 0, c: 0, m: month };
-  entry.t = (entry.t || 0) + 1;
-  entry.c = entry.m === month ? (entry.c || 0) + 1 : 1;
-  entry.m = month;
-  if (name) entry.n = String(name).slice(0, 120);
-  clicks[key] = entry;
-  writeJson(clicksStorageKey, clicks);
+
+function recordClick(href) {
+  const key = normalizedUrlKey(href);
+  clickCounts[key] = (clickCounts[key] || 0) + 1;
+  writeJson(clicksStorageKey, clickCounts);
   if (backendMode === "supabase") {
-    try { sb.rpc("bump_link_click", { p_url: key }).then(() => {}, () => {}); } catch { /* function not installed */ }
+    sb.from("clicks").insert([{ url: key }]).then(() => {}).catch(() => {});
   }
 }
-function popularEntries(limit = 6) {
-  const clicks = getClicks();
-  const month = monthStamp();
-  return Object.entries(clicks)
-    .map(([url, entry]) => ({
-      url,
-      name: entry.n || (safeUrl(url)?.hostname || url).replace(/^www\./, ""),
-      total: entry.t || 0,
-      month: entry.m === month ? entry.c || 0 : 0
-    }))
-    .filter((item) => item.total > 0)
-    .sort((a, b) => b.month - a.month || b.total - a.total)
-    .slice(0, limit);
-}
-function renderPopular() {
-  const wrap = $("#popular-panel");
-  if (!wrap) return;
-  const entries = popularEntries();
-  if (entries.length < 3) { wrap.hidden = true; wrap.innerHTML = ""; return; }
-  wrap.hidden = false;
-  wrap.innerHTML = `<section class="panel">
-    <div class="panel-heading">
-      <div><p class="eyebrow">POPULAR THIS MONTH</p><h2>Most opened</h2></div>
-      <p class="section-note">Counted from opens on this device${backendMode === "supabase" ? " and the shared board" : ""}.</p>
-    </div>
-    <ol class="popular-list">${entries.map((item) => `<li>
-      <a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(item.name)}</a>
-      <span class="popular-count">${item.month || item.total} open${(item.month || item.total) === 1 ? "" : "s"}</span>
-    </li>`).join("")}</ol>
-  </section>`;
-}
 
-/* =====================================================================
-   LAST VERIFIED — hand-set dates, optionally overwritten by
-   tools/check-links.mjs writing link-status.json next to this file
-   ===================================================================== */
-let linkStatus = null;
-const deadUrls = new Set();
-
-function formatVerifiedDate(value) {
-  const parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || ""));
-  const date = parts ? new Date(Number(parts[1]), Number(parts[2]) - 1, Number(parts[3])) : new Date(value);
-  if (Number.isNaN(date.getTime())) return String(value || "");
-  return date.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
-}
-function verifiedFor(category) {
-  const entry = linkStatus && linkStatus.categories ? linkStatus.categories[category.title] : null;
-  return {
-    checked: (entry && entry.checked) || (linkStatus && linkStatus.checked) || category.verified || DEFAULT_VERIFIED,
-    dead: (entry && entry.dead) || 0
-  };
-}
-function isDeadLink(url) {
-  const parsed = safeUrl(url);
-  return Boolean(parsed && deadUrls.has(parsed.href));
-}
-function updateVerifiedFooter() {
-  const el = $("#footer-verified");
-  if (!el) return;
-  const checked = (linkStatus && linkStatus.checked) || DEFAULT_VERIFIED;
-  el.textContent = `LINKS LAST CHECKED ${formatVerifiedDate(checked).toUpperCase()}`;
-}
-async function loadLinkStatus() {
+async function loadRemoteClickCounts() {
+  if (backendMode !== "supabase") return;
   try {
-    const response = await fetch("link-status.json", { cache: "no-store" });
-    if (!response.ok) return;
-    const data = await response.json();
-    if (!data || typeof data !== "object") return;
-    linkStatus = data;
-    deadUrls.clear();
-    for (const url of Array.isArray(data.dead) ? data.dead : []) {
-      const parsed = safeUrl(url);
-      if (parsed) deadUrls.add(parsed.href);
+    const { data, error } = await sb.from("clicks").select("url");
+    if (error || !data) return;
+    const remoteCounts = {};
+    for (const row of data) remoteCounts[row.url] = (remoteCounts[row.url] || 0) + 1;
+    for (const key of Object.keys(remoteCounts)) {
+      clickCounts[key] = Math.max(clickCounts[key] || 0, remoteCounts[key]);
     }
+    writeJson(clicksStorageKey, clickCounts);
     renderResources();
-    updateVerifiedFooter();
-  } catch { /* no status file published yet — hand-set dates stand */ }
+  } catch { /* silent — local counts still work */ }
 }
 
-/* =====================================================================
-   ONBOARDING — first-time visitors get five safe bets
-   ===================================================================== */
-const onboardingStorageKey = "music-production-resource-onboarding-v1";
-const STARTER_PICKS = [
-  { name: "Vital", url: "https://vital.audio", why: "Free wavetable synth that holds up against the paid ones. Best first instrument." },
-  { name: "REAPER", url: "https://www.reaper.fm", why: "Full DAW with an unlimited free evaluation. Runs on almost any machine." },
-  { name: "Valhalla Supermassive", url: "https://valhalladsp.com/shop/reverb/valhalla-supermassive/", why: "Free reverb and delay in one. The plugin everybody ends up installing." },
-  { name: "Spitfire LABS", url: "https://labs.spitfireaudio.com/", why: "Properly recorded free instruments — strings, pianos, choirs. Commercially usable." },
-  { name: "YouLean Loudness Meter", url: "https://youlean.co/youlean-loudness-meter/", why: "Free LUFS meter so your master lands at the level streaming platforms want." }
-];
-function renderOnboarding({ force = false } = {}) {
-  const panel = $("#onboarding");
-  const list = $("#onboarding-list");
-  if (!panel || !list) return;
-  const dismissed = localStorage.getItem(onboardingStorageKey) === "1";
-  if (dismissed && !force) { panel.hidden = true; return; }
-  list.innerHTML = STARTER_PICKS.map((pick) => `<li>
-    <div>
-      <a href="${escapeHtml(pick.url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(pick.name)}</a>
-      <p>${escapeHtml(pick.why)}</p>
-    </div>
-  </li>`).join("");
-  panel.hidden = false;
+async function loadCheckedDates() {
+  try {
+    const res = await fetch("checked-dates.json", { cache: "no-store" });
+    if (!res.ok) return;
+    checkedDates = await res.json();
+    renderResources();
+  } catch { /* file may not exist yet — that's fine, just no note shown */ }
 }
 
-/* =====================================================================
-   RENDERING
-   ===================================================================== */
 function allCategories() {
   const seeds = sections.map((section, index) => ({
     id: String(index),
-    index,
     title: section.title,
     icon: section.icon,
     eyebrow: section.eyebrow,
-    tags: parseTags(section.tags),
-    aliases: section.aliases || [],
-    verified: section.verified || DEFAULT_VERIFIED,
     community: false
   }));
   const known = new Set(seeds.map((seed) => seed.id));
@@ -641,40 +357,30 @@ function allCategories() {
     known.add(catId);
     extras.push({
       id: catId,
-      index: null,
       title: catId.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
       icon: "◆",
       eyebrow: "COMMUNITY CATEGORY",
-      tags: [],
-      aliases: ["community", "added by you"],
-      verified: null,
       community: true
     });
   }
   return [...seeds, ...extras];
 }
 
-function linkMarkup(item) {
-  const url = safeUrl(item.address ?? item.url);
+function linkMarkup(link, isStatic = false) {
+  const url = safeUrl(link.url);
   if (!url) return "";
   const ext = fileExtensionOf(url.href);
   const badge = ext ? `<span class="file-badge">FILE · ${escapeHtml(ext.toUpperCase())}</span>` : "";
   const reasons = ["Broken link", "Wrong / outdated info", "Not free as listed", "Spam or inappropriate", "NSFW content", "Other"];
-  const removeBtn = !item.isStatic && item.id ? `<button type="button" class="link-remove" data-remove-id="${escapeHtml(item.id)}" title="Remove this link">✕</button>` : "";
-  const stats = clickStats(url.href);
-  const opens = stats.total ? `<span class="link-clicks">${stats.total} open${stats.total === 1 ? "" : "s"}</span>` : "";
-  const dead = isDeadLink(url.href);
-  const deadFlag = dead ? `<span class="link-dead-flag">unreachable at last check</span>` : "";
-  return `<li class="link-item${dead ? " link-dead" : ""}">
+  const removeBtn = !isStatic && link.id ? `<button type="button" class="link-remove" data-remove-id="${escapeHtml(link.id)}" title="Remove this link">✕</button>` : "";
+  return `<li class="link-item">
     <div class="link-row">
-      <a class="resource-link" href="${url.href}" target="_blank" rel="noreferrer noopener"><span class="link-title">${escapeHtml(item.name)}</span>${badge}${tagMarkup(item.tags || [])}</a>
+      <a class="resource-link" href="${url.href}" target="_blank" rel="noreferrer noopener"><span class="link-title">${escapeHtml(link.name)}</span>${badge}</a>
       <a class="link-url" href="${url.href}" target="_blank" rel="noreferrer noopener">${escapeHtml(url.hostname.replace(/^www\./, ""))}</a>
     </div>
     <div class="link-actions">
       <button type="button" class="report-btn">⚑ Report</button>
       ${removeBtn}
-      ${opens}
-      ${deadFlag}
       <span class="report-status" hidden></span>
     </div>
     <div class="report-form" hidden>
@@ -685,112 +391,117 @@ function linkMarkup(item) {
   </li>`;
 }
 
+/* Small alias map so common shorthand/typos still find the right category
+   or tool, e.g. "daw" -> matches "Digital Audio Workstations" wording,
+   "vst" -> matches "plugin". Search checks these in addition to the literal
+   query. */
+const searchSynonyms = {
+  daw: "digital audio workstation",
+  vst: "plugin instrument vst au aax",
+  au: "plugin instrument",
+  aax: "plugin instrument",
+  eq: "equalizer eq",
+  comp: "compressor",
+  verb: "reverb",
+  synth: "synthesizer instrument",
+  daws: "digital audio workstation",
+  free: "free nothing to pay",
+  browser: "browser online no install",
+  mix: "mixing",
+  master: "mastering",
+  vocal: "vocals voice recording",
+  cover: "cover art paint image",
+  art: "cover art paint image",
+  ableton: "ableton live daw",
+  fl: "fl studio image-line",
+  logic: "logic pro apple daw",
+};
+
+function levenshtein1(a, b) {
+  // Cheap "distance <= 1" check (typo tolerance) — full Levenshtein would
+  // be overkill for search-as-you-type on short tool names.
+  if (Math.abs(a.length - b.length) > 1) return false;
+  if (a === b) return true;
+  let i = 0, j = 0, edits = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) { i++; j++; continue; }
+    edits++;
+    if (edits > 1) return false;
+    if (a.length === b.length) { i++; j++; }
+    else if (a.length > b.length) i++;
+    else j++;
+  }
+  return true;
+}
+
+function fuzzyMatch(haystack, needle) {
+  const hay = haystack.toLowerCase();
+  const query = needle.toLowerCase();
+  if (hay.includes(query)) return true;
+  const expanded = searchSynonyms[query];
+  if (expanded && hay.includes(expanded.split(" ")[0])) return true;
+  if (query.length < 4) return false;
+  // Typo tolerance: does any word in the haystack nearly-match the query?
+  return hay.split(/[\s·,()/-]+/).some((word) => word.length >= 3 && levenshtein1(word, query));
+}
+
 function panelMarkup(category, links) {
-  const verified = category.community ? null : verifiedFor(category);
-  const stamp = verified
-    ? `<p class="verified-stamp">CHECKED ${escapeHtml(formatVerifiedDate(verified.checked).toUpperCase())}${verified.dead ? ` · <span class="verified-dead">${verified.dead} DEAD</span>` : ""}</p>`
-    : "";
+  const checkInfo = !category.community ? checkedDates[category.title] : null;
+  let checkedNote = "";
+  if (checkInfo) {
+    const date = new Date(checkInfo.checked);
+    const dateStr = isNaN(date) ? "" : date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    const brokenText = checkInfo.broken > 0 ? ` · ${checkInfo.broken} link${checkInfo.broken === 1 ? "" : "s"} may be down` : " · all links OK";
+    checkedNote = `<p class="category-checked${checkInfo.broken > 0 ? " has-broken" : ""}">Checked ${escapeHtml(dateStr)}${escapeHtml(brokenText)}</p>`;
+  }
   return `<section class="panel" aria-labelledby="section-${escapeHtml(category.id)}">
-    <div class="panel-heading">
-      <div><p class="eyebrow">${escapeHtml(category.eyebrow)}</p><h2 id="section-${escapeHtml(category.id)}" class="category-title"><span class="category-symbol" aria-hidden="true">${category.community ? "◆" : escapeHtml(category.icon)}</span><span>${escapeHtml(category.title)}</span></h2></div>
-      ${stamp}
-    </div>
+    <div class="panel-heading"><div><p class="eyebrow">${escapeHtml(category.eyebrow)}</p><h2 id="section-${escapeHtml(category.id)}" class="category-title"><span class="category-symbol" aria-hidden="true">${category.community ? "◆" : escapeHtml(category.icon)}</span><span>${escapeHtml(category.title)}</span></h2>${checkedNote}</div></div>
     <ul class="link-list">${links.join("")}</ul>
   </section>`;
 }
 
-function sortItems(items, keyword) {
-  const copy = [...items];
-  if (sortMode === "az") copy.sort((a, b) => a.name.localeCompare(b.name));
-  else if (sortMode === "popular") copy.sort((a, b) => {
-    const left = clickStats(a.address), right = clickStats(b.address);
-    return right.month - left.month || right.total - left.total || a.name.localeCompare(b.name);
-  });
-  else if (keyword) copy.sort((a, b) => (b.score || 0) - (a.score || 0));
-  return copy;
-}
-
 function renderResources(query = searchInput.value) {
-  const keyword = String(query || "").trim();
+  const keyword = query.trim().toLowerCase();
   const categories = allCategories();
-  let exactHit = false;
-  let totalShown = 0;
-
-  let panels = categories.map((category) => {
-    const section = category.index != null ? sections[category.index] : null;
+  const panels = categories.map((category) => {
     let items = [];
-    if (section) {
-      items = section.links.map(([name, address, linkTags]) => ({
-        name, address, isStatic: true,
-        tags: mergeTags(parseTags(linkTags), category.tags)
-      }));
+    if (!category.community) {
+      const index = Number(category.id);
+      items = sections[index].links.map(([name, address, tags]) => ({ name, address, isStatic: true, tags: tags || [] }));
     }
-    const shared = store.links
-      .filter((link) => String(link.cat) === category.id && safeUrl(link.url))
-      .map((link) => ({
-        name: link.name, address: link.url, isStatic: false, id: link.id,
-        tags: mergeTags(parseTags(link.tags), category.tags)
-      }));
-    items = [...items, ...shared].filter((item) => matchesFilters(item.tags));
+    const shared = store.links.filter((link) => String(link.cat) === category.id);
+    const sharedItems = shared
+      .map((link) => ({ name: link.name, address: link.url, isStatic: false, id: link.id, tags: [] }))
+      .filter((item) => safeUrl(item.address));
+    items = [...items, ...sharedItems];
 
-    let categoryScore = 0;
-    if (keyword) {
-      const categoryHay = normalizeText([category.title, category.eyebrow, category.aliases.join(" "), category.tags.join(" ")].join(" "));
-      categoryScore = fuzzyScore(keyword, categoryHay);
-      items = items.map((item) => {
-        const hay = normalizeText(`${item.name} ${item.address} ${(item.tags || []).join(" ")}`);
-        const score = Math.max(fuzzyScore(keyword, hay), categoryScore ? categoryScore * 0.9 : 0);
-        return { ...item, score };
-      }).filter((item) => item.score > 0);
-      if (items.some((item) => item.score >= 1)) exactHit = true;
+    if (activeFilter === "popular") {
+      items = [...items].sort((a, b) => {
+        const ca = clickCounts[normalizedUrlKey(safeUrl(a.address)?.href || a.address)] || 0;
+        const cb = clickCounts[normalizedUrlKey(safeUrl(b.address)?.href || b.address)] || 0;
+        return cb - ca;
+      });
+    } else if (activeFilter !== "all") {
+      items = items.filter((item) => item.tags.includes(activeFilter));
     }
 
-    items = sortItems(items, keyword);
-    totalShown += items.length;
-    const best = items.reduce((max, item) => Math.max(max, item.score || 0), 0);
-    // A category whose *name* matches ("wallpaper") is worth showing even
-    // before anyone has added links to it — that's where you'd add one.
-    const nameMatch = Boolean(keyword) && !items.length && categoryScore > 0;
-    // Searching "daw" should put the DAWs category above a link that merely
-    // contains the letters (tokyodawn.net), so a category-name hit outranks
-    // any single link match.
-    const rank = categoryScore >= 1 ? 1.1 : Math.max(best, categoryScore * 0.9);
-    return { category, items, best, rank, nameMatch };
-  }).filter((panel) => panel.items.length || panel.nameMatch);
-
-  // Best match first while searching, category order otherwise.
-  if (keyword) panels.sort((a, b) => (b.rank || 0) - (a.rank || 0));
-
-  const summary = $("#filter-summary");
-  const clearBtn = $("#clear-filters");
-  if (clearBtn) clearBtn.hidden = activeFilters.size === 0;
-  if (summary) {
-    const bits = [];
-    if (activeFilters.size) bits.push([...activeFilters].map((tag) => TAG_LABELS[tag]).join(" + "));
-    if (sortMode === "popular") bits.push("most opened first");
-    if (sortMode === "az") bits.push("A–Z");
-    summary.textContent = bits.length ? `${totalShown} link${totalShown === 1 ? "" : "s"} · ${bits.join(" · ")}` : "";
-  }
+    const matchesCategory = keyword ? fuzzyMatch(`${category.title} ${category.eyebrow}`, keyword) : false;
+    const matchingItems = keyword
+      ? items.filter((item) => matchesCategory || fuzzyMatch(`${item.name} ${item.address}`, keyword))
+      : items;
+    return { category, links: matchingItems.map((item) => linkMarkup({ name: item.name, url: item.address, id: item.id }, item.isStatic)) };
+  }).filter((panel) => panel.links.length);
 
   if (!panels.length) {
-    const hint = activeFilters.size ? "Try clearing a filter" : "Try a different website, tool, or category";
-    resourceGrid.innerHTML = `<section class="panel"><p class="empty-state">No matches yet. ${hint}.</p></section>`;
+    resourceGrid.innerHTML = '<section class="panel"><p class="empty-state">No matches yet. Try a different website, tool, or category.</p></section>';
     searchResult.textContent = keyword ? "0 matching resources" : "";
     return;
   }
-
-  const bodyFor = (panel) => panel.items.length
-    ? panel.items.map(linkMarkup)
-    : [`<li class="link-item"><p class="empty-state">Nothing here yet — add the first link with the form below.</p></li>`];
   const [first, ...rest] = panels;
   const columns = [[], []];
-  rest.forEach((panel, index) => columns[index % 2].push(panelMarkup(panel.category, bodyFor(panel))));
-  resourceGrid.innerHTML = `${panelMarkup(first.category, bodyFor(first))}<div class="resource-columns">${columns.map((cards) => `<div class="resource-column">${cards.join("")}</div>`).join("")}</div>`;
-
-  if (!keyword) searchResult.textContent = "";
-  else if (!totalShown) searchResult.textContent = `Matched the "${panels[0].category.title}" category — no links in it yet`;
-  else if (exactHit) searchResult.textContent = `${totalShown} matching resource${totalShown === 1 ? "" : "s"}`;
-  else searchResult.textContent = `${totalShown} close match${totalShown === 1 ? "" : "es"} for "${keyword}" — nothing matched exactly`;
+  rest.forEach((panel, index) => columns[index % 2].push(panelMarkup(panel.category, panel.links)));
+  resourceGrid.innerHTML = `${panelMarkup(first.category, first.links)}<div class="resource-columns">${columns.map((cards) => `<div class="resource-column">${cards.join("")}</div>`).join("")}</div>`;
+  searchResult.textContent = keyword ? `${panels.reduce((total, panel) => total + panel.links.length, 0)} matching resources` : "";
 }
 
 function removeLink(id) {
@@ -967,6 +678,17 @@ searchForm.addEventListener("submit", (event) => {
   renderResources();
 });
 
+if (filterBar) {
+  filterBar.addEventListener("click", (event) => {
+    const chip = event.target.closest(".filter-chip");
+    if (!chip) return;
+    activeFilter = chip.dataset.filter;
+    filterBar.querySelectorAll(".filter-chip").forEach((btn) => btn.classList.toggle("is-active", btn === chip));
+    renderResources();
+  });
+}
+
+
 /* =====================================================================
    REPORTS + ADMIN
    ===================================================================== */
@@ -975,6 +697,11 @@ resourceGrid.addEventListener("click", async (event) => {
   if (removeBtn) {
     removeLink(removeBtn.dataset.removeId);
     return;
+  }
+  const outboundLink = event.target.closest(".resource-link, .link-url");
+  if (outboundLink) {
+    const href = outboundLink.getAttribute("href");
+    if (href) recordClick(href);
   }
   const item = event.target.closest(".link-item");
   if (!item) return;
@@ -1476,6 +1203,96 @@ wallpaperList.addEventListener("click", (event) => {
 });
 
 /* =====================================================================
+   ONBOARDING — "New here?" starter callout
+   ===================================================================== */
+const starterCallout = $("#starter-callout");
+const starterDismissKey = "music-production-resource-starter-dismissed";
+
+function findLink(nameSubstring) {
+  for (const section of sections) {
+    const hit = section.links.find(([name]) => name.toLowerCase().includes(nameSubstring.toLowerCase()));
+    if (hit) return { name: hit[0], url: safeUrl(hit[1])?.href };
+  }
+  return null;
+}
+
+function renderStarterCallout() {
+  if (!starterCallout) return;
+  if (readJson(starterDismissKey, false)) return;
+  const picks = [
+    findLink("BandLab"),
+    findLink("Vital"),
+    findLink("12NOTEZ"),
+    findLink("Canva"),
+    DISCORD_INVITE_URL ? { name: "Join the Discord", url: DISCORD_INVITE_URL } : null,
+  ].filter(Boolean);
+  if (!picks.length) return;
+  starterCallout.hidden = false;
+  starterCallout.innerHTML = `
+    <div class="starter-heading">
+      <h3>New here? Start with these ${picks.length}</h3>
+      <button type="button" class="starter-dismiss" aria-label="Dismiss">×</button>
+    </div>
+    <div class="starter-links">
+      ${picks.map((p) => `<a href="${p.url}" target="_blank" rel="noreferrer noopener">${escapeHtml(p.name)}</a>`).join("")}
+    </div>`;
+  starterCallout.querySelector(".starter-dismiss").addEventListener("click", () => {
+    writeJson(starterDismissKey, true);
+    starterCallout.hidden = true;
+  });
+}
+
+/* =====================================================================
+   ACCESSIBILITY — focus trap + focus return for the Tools modals
+   ===================================================================== */
+function setupModalFocusTrap() {
+  const overlays = document.querySelectorAll(".tools-modal-overlay");
+  const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  overlays.forEach((overlay) => {
+    let lastTrigger = null;
+    let trapHandler = null;
+
+    const isVisible = () => overlay.style.display !== "none" && getComputedStyle(overlay).display !== "none";
+
+    const onShow = () => {
+      lastTrigger = document.activeElement;
+      const box = overlay.querySelector(".tools-modal-box");
+      const focusables = box ? Array.from(box.querySelectorAll(focusableSelector)) : [];
+      (focusables[0] || box || overlay).focus?.({ preventScroll: true });
+
+      trapHandler = (event) => {
+        if (event.key !== "Tab" || !focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      };
+      overlay.addEventListener("keydown", trapHandler);
+    };
+
+    const onHide = () => {
+      if (trapHandler) overlay.removeEventListener("keydown", trapHandler);
+      trapHandler = null;
+      lastTrigger?.focus?.({ preventScroll: true });
+    };
+
+    let wasVisible = isVisible();
+    new MutationObserver(() => {
+      const nowVisible = isVisible();
+      if (nowVisible && !wasVisible) onShow();
+      else if (!nowVisible && wasVisible) onHide();
+      wasVisible = nowVisible;
+    }).observe(overlay, { attributes: true, attributeFilter: ["style"] });
+  });
+}
+
+/* =====================================================================
    BOOT
    ===================================================================== */
 applyTheme(currentTheme(), { persist: false });
@@ -1491,6 +1308,10 @@ initialSync().then(() => {
   renderResources();
   updateCounts();
 });
+loadCheckedDates();
+loadRemoteClickCounts();
+renderStarterCallout();
+setupModalFocusTrap();
 window._pullInterval = setInterval(periodicPull, 60000);
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
@@ -1556,130 +1377,3 @@ updateAccountStatuses();
 /* Auto-update account status when fields change */
 if (youtubeNameInput) youtubeNameInput.addEventListener("input", updateAccountStatuses);
 if (instagramNameInput) instagramNameInput.addEventListener("input", updateAccountStatuses);
-
-/* =====================================================================
-   FILTER CHIPS + SORT
-   ===================================================================== */
-const filterChips = [...document.querySelectorAll(".filter-chips .chip[data-filter]")];
-filterChips.forEach((chip) => {
-  chip.setAttribute("aria-pressed", "false");
-  chip.addEventListener("click", () => {
-    const tag = chip.dataset.filter;
-    if (activeFilters.has(tag)) activeFilters.delete(tag);
-    else activeFilters.add(tag);
-    chip.setAttribute("aria-pressed", String(activeFilters.has(tag)));
-    renderResources();
-  });
-});
-const clearFiltersBtn = $("#clear-filters");
-if (clearFiltersBtn) clearFiltersBtn.addEventListener("click", () => {
-  activeFilters.clear();
-  filterChips.forEach((chip) => chip.setAttribute("aria-pressed", "false"));
-  renderResources();
-});
-const sortSelect = $("#sort-mode");
-if (sortSelect) sortSelect.addEventListener("change", () => {
-  sortMode = sortSelect.value;
-  renderResources();
-});
-
-/* =====================================================================
-   CLICK TRACKING — every open of an outbound link is counted
-   ===================================================================== */
-let popularTimer;
-function trackOutbound(event) {
-  const link = event.target.closest("a.resource-link, a.link-url, .popular-list a, .onboarding-list a");
-  if (!link) return;
-  const href = link.getAttribute("href");
-  if (!href || href === "#") return;
-  const item = link.closest(".link-item");
-  const name = item?.querySelector(".link-title")?.textContent?.trim() || link.textContent.trim();
-  bumpClick(href, name);
-  clearTimeout(popularTimer);
-  popularTimer = setTimeout(() => { renderPopular(); renderResources(); }, 400);
-}
-["click", "auxclick"].forEach((type) => {
-  resourceGrid.addEventListener(type, trackOutbound);
-  $("#popular-panel")?.addEventListener(type, trackOutbound);
-  $("#onboarding")?.addEventListener(type, trackOutbound);
-});
-
-/* =====================================================================
-   ONBOARDING
-   ===================================================================== */
-const onboardingDismiss = $("#onboarding-dismiss");
-if (onboardingDismiss) onboardingDismiss.addEventListener("click", () => {
-  localStorage.setItem(onboardingStorageKey, "1");
-  const panel = $("#onboarding");
-  if (panel) panel.hidden = true;
-});
-const showStartersBtn = $("#show-starters");
-if (showStartersBtn) showStartersBtn.addEventListener("click", () => {
-  localStorage.removeItem(onboardingStorageKey);
-  renderOnboarding({ force: true });
-  const panel = $("#onboarding");
-  if (panel) window.scrollTo({ top: panel.getBoundingClientRect().top + window.scrollY - 20, behavior: "smooth" });
-});
-
-/* =====================================================================
-   MODAL ACCESSIBILITY — the tools modals are Alpine-driven, so we watch
-   for the display flip: focus moves in, Tab is trapped, and focus goes
-   back to the card that opened it on close.
-   ===================================================================== */
-const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
-function initModalAccessibility() {
-  document.querySelectorAll(".tools-modal-overlay").forEach((overlay) => {
-    if (overlay.dataset.a11yReady === "1") return;
-    overlay.dataset.a11yReady = "1";
-    const box = overlay.querySelector(".tools-modal-box");
-    if (box && !box.hasAttribute("tabindex")) box.setAttribute("tabindex", "-1");
-
-    let lastFocused = null;
-    let isOpen = false;
-
-    const focusables = () => [...overlay.querySelectorAll(FOCUSABLE_SELECTOR)].filter((el) => el.offsetParent !== null);
-    const onKeydown = (event) => {
-      if (event.key !== "Tab") return;
-      const items = focusables();
-      if (!items.length) { event.preventDefault(); box?.focus(); return; }
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (event.shiftKey && (document.activeElement === first || document.activeElement === box)) {
-        event.preventDefault(); last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault(); first.focus();
-      }
-    };
-
-    const sync = () => {
-      const visible = overlay.style.display !== "none" && getComputedStyle(overlay).display !== "none";
-      if (visible === isOpen) return;
-      isOpen = visible;
-      if (visible) {
-        lastFocused = document.activeElement;
-        overlay.addEventListener("keydown", onKeydown);
-        const target = overlay.querySelector(".tools-modal-close") || box;
-        requestAnimationFrame(() => target?.focus());
-      } else {
-        overlay.removeEventListener("keydown", onKeydown);
-        if (lastFocused && document.contains(lastFocused) && typeof lastFocused.focus === "function") lastFocused.focus();
-        lastFocused = null;
-      }
-    };
-
-    new MutationObserver(sync).observe(overlay, { attributes: true, attributeFilter: ["style", "class", "hidden"] });
-    sync();
-  });
-}
-document.addEventListener("alpine:initialized", initModalAccessibility);
-setTimeout(initModalAccessibility, 1200);
-$("#tab-tools")?.addEventListener("click", () => setTimeout(initModalAccessibility, 100));
-
-/* =====================================================================
-   BOOT (additions)
-   ===================================================================== */
-renderOnboarding();
-renderPopular();
-updateVerifiedFooter();
-loadLinkStatus();

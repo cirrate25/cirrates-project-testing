@@ -1,33 +1,39 @@
 <!doctype html>
-<html lang="en" xmlns:x-on="https://alpinejs.dev/directives/on" xmlns:x-bind="https://alpinejs.dev/directives/bind">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="100+ hand-checked links for music producers and engineers: free plugins, DAWs, sample packs, mixing tools, artwork apps and communities. Filter by free/paid and platform." />
-    <!-- SET YOUR DOMAIN: replace every "your-domain.example" in this file, sitemap.xml and robots.txt -->
-    <link rel="canonical" href="https://your-domain.example/" />
-    <title>Music Production Resources — free plugins, DAWs &amp; tools · CIRRATE</title>
+    <meta name="description" content="A curated directory of music production resources, Miami-sunset style. DAWs, plugins, mixing tools, and a community — all in one place." />
+    <title>Music Production Resources — by Cirrate</title>
 
-    <!-- Favicon / app icons -->
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="alternate icon" href="favicon.png" type="image/png" sizes="180x180" />
-    <link rel="apple-touch-icon" href="favicon.png" />
-    <meta name="theme-color" content="#4a1268" />
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#a4187e" />
 
-    <!-- Social preview (Discord, X/Twitter, iMessage, Slack) -->
+    <!-- Open Graph / Discord / Facebook preview
+         NOTE: og:image and twitter:image should be absolute URLs once this
+         is deployed (e.g. https://yoursite.com/assets/og-image.png) — most
+         crawlers (Twitter/X especially) won't resolve relative paths. -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="CIRRATE Resources" />
-    <meta property="og:title" content="Music Production Resources" />
-    <meta property="og:description" content="100+ hand-checked links for producers and engineers — free plugins, DAWs, samples, mixing tools and communities." />
-    <meta property="og:url" content="https://your-domain.example/" />
-    <meta property="og:image" content="https://your-domain.example/og-image.png" />
+    <meta property="og:title" content="Music Production Resources — by Cirrate" />
+    <meta property="og:description" content="A curated directory of music production resources, Miami-sunset style. DAWs, plugins, mixing tools, and a community — all in one place." />
+    <meta property="og:image" content="assets/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Music Production Resources — a curated directory for producers and engineers." />
+    <meta property="og:site_name" content="Cirrate" />
+
+    <!-- Twitter/X preview -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Music Production Resources" />
-    <meta name="twitter:description" content="100+ hand-checked links for producers and engineers — free plugins, DAWs, samples, mixing tools and communities." />
-    <meta name="twitter:image" content="https://your-domain.example/og-image.png" />
+    <meta name="twitter:title" content="Music Production Resources — by Cirrate" />
+    <meta name="twitter:description" content="A curated directory of music production resources, Miami-sunset style. DAWs, plugins, mixing tools, and a community — all in one place." />
+    <meta name="twitter:image" content="assets/og-image.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -69,17 +75,6 @@
       </div>
 
       <div id="panel-resources" class="tab-panel" role="tabpanel" aria-labelledby="tab-resources">
-        <section id="onboarding" class="onboarding" aria-labelledby="onboarding-title" hidden>
-          <div class="onboarding-head">
-            <div>
-              <p class="eyebrow">NEW HERE?</p>
-              <h2 id="onboarding-title">Start with these five</h2>
-            </div>
-            <button type="button" id="onboarding-dismiss" class="onboarding-dismiss">Got it — hide this</button>
-          </div>
-          <ol id="onboarding-list" class="onboarding-list"></ol>
-          <p class="onboarding-note">Then use the filters below to narrow the full list — free only, browser only, beginner-friendly.</p>
-        </section>
         <form id="search-form" class="search-form" role="search">
           <label class="sr-only" for="resource-search">Search resources</label>
           <span aria-hidden="true">⌕</span>
@@ -88,32 +83,18 @@
           <button type="submit">Search</button>
         </form>
         <p id="search-result" class="search-result" aria-live="polite"></p>
-        <div class="filter-bar">
-          <div class="filter-chips" role="group" aria-label="Filter resources">
-            <button type="button" class="chip" data-filter="free">Free</button>
-            <button type="button" class="chip" data-filter="paid">Paid</button>
-            <span class="chip-divider" aria-hidden="true"></span>
-            <button type="button" class="chip" data-filter="browser">Browser</button>
-            <button type="button" class="chip" data-filter="win">Windows</button>
-            <button type="button" class="chip" data-filter="mac">Mac</button>
-            <button type="button" class="chip" data-filter="linux">Linux</button>
-            <button type="button" class="chip" data-filter="mobile">Mobile</button>
-            <span class="chip-divider" aria-hidden="true"></span>
-            <button type="button" class="chip" data-filter="beginner">Beginner-friendly</button>
-          </div>
-          <div class="filter-tools">
-            <label for="sort-mode" class="sr-only">Sort resources</label>
-            <select id="sort-mode">
-              <option value="default">Category order</option>
-              <option value="popular">Most opened</option>
-              <option value="az">A–Z</option>
-            </select>
-            <button type="button" id="clear-filters" class="chip chip-clear" hidden>Clear</button>
-          </div>
+        <div id="filter-bar" class="filter-bar" role="group" aria-label="Filter resources">
+          <button type="button" class="filter-chip is-active" data-filter="all">All</button>
+          <button type="button" class="filter-chip" data-filter="free">Free</button>
+          <button type="button" class="filter-chip" data-filter="paid">Paid</button>
+          <button type="button" class="filter-chip" data-filter="win">Windows</button>
+          <button type="button" class="filter-chip" data-filter="mac">Mac</button>
+          <button type="button" class="filter-chip" data-filter="browser">Browser</button>
+          <button type="button" class="filter-chip" data-filter="beginner">Beginner-friendly</button>
+          <button type="button" class="filter-chip" data-filter="popular">Most opened</button>
         </div>
-        <p id="filter-summary" class="filter-summary" aria-live="polite"></p>
-        <div id="popular-panel" class="popular-wrap" hidden></div>
         <p id="sync-note" class="sync-note"></p>
+        <div id="starter-callout" class="starter-callout" hidden></div>
         <div id="resource-grid" class="resource-grid" role="region" aria-label="Resources"></div>
 
         <section class="my-links panel" aria-labelledby="my-links-title">
@@ -191,7 +172,7 @@
 
         <div class="youtube-section">
           <div class="youtube-thumb-wrap" id="youtube-thumb-wrap">
-            <img id="youtube-thumb" class="youtube-thumb" alt="Latest video thumbnail" loading="lazy" decoding="async" width="380" height="280" hidden />
+            <img id="youtube-thumb" class="youtube-thumb" src="" alt="Latest video thumbnail" hidden />
             <div class="youtube-thumb-placeholder" id="youtube-thumb-placeholder">▶</div>
           </div>
           <div class="youtube-sidebar">
@@ -278,7 +259,7 @@
     <h2 class="panel-heading">Getting Started</h2>
     <div class="tools-grid-3">
 
-      <div class="tools-card" role="button" tabindex="0" x-on:click="dawModal = true" x-on:keydown.enter="dawModal = true" x-on:keydown.space.prevent="dawModal = true">
+      <div class="tools-card" role="button" tabindex="0" @click="dawModal = true" @keydown.enter="dawModal = true" @keydown.space.prevent="dawModal = true">
         <div class="tools-card-head">
           <div class="tools-card-icon">🎛️</div>
           <h3>Digital Audio Workstations</h3>
@@ -287,7 +268,7 @@
         <p>Browser and desktop DAWs for every platform and budget.</p>
       </div>
 
-      <div class="tools-card" role="button" tabindex="0" x-on:click="audioModal = true" x-on:keydown.enter="audioModal = true" x-on:keydown.space.prevent="audioModal = true">
+      <div class="tools-card" role="button" tabindex="0" @click="audioModal = true" @keydown.enter="audioModal = true" @keydown.space.prevent="audioModal = true">
         <div class="tools-card-head">
           <div class="tools-card-icon">🎧</div>
           <h3>Audio Gear</h3>
@@ -296,7 +277,7 @@
         <p>Interfaces, monitors, headphones, mics — essential hardware for making music.</p>
       </div>
 
-      <div class="tools-card" role="button" tabindex="0" x-on:click="mixingModal = true" x-on:keydown.enter="mixingModal = true" x-on:keydown.space.prevent="mixingModal = true">
+      <div class="tools-card" role="button" tabindex="0" @click="mixingModal = true" @keydown.enter="mixingModal = true" @keydown.space.prevent="mixingModal = true">
         <div class="tools-card-head">
           <div class="tools-card-icon">🎚️</div>
           <h3>Mixing Basics</h3>
@@ -309,12 +290,12 @@
   </div>
 
   <!-- DAW Modal -->
-  <div x-show="dawModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-daw" x-on:click.away="dawModal = false" x-on:keydown.escape.window="dawModal = false" style="display:none;">
-    <div class="tools-modal-bg" x-on:click="dawModal = false"></div>
-    <div class="tools-modal-box">
+  <div x-show="dawModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-daw" @click.away="dawModal = false" @keydown.escape.window="dawModal = false" style="display:none;">
+    <div class="tools-modal-bg" @click="dawModal = false"></div>
+    <div class="tools-modal-box" tabindex="-1">
       <div class="tools-modal-header">
         <h3 id="modal-title-daw">Digital Audio Workstations</h3>
-        <button x-on:click="dawModal = false" class="tools-modal-close" aria-label="Close dialog">×</button>
+        <button @click="dawModal = false" class="tools-modal-close">×</button>
       </div>
       <div class="tools-modal-grid">
 
@@ -440,12 +421,12 @@
   </div>
 
   <!-- Audio Gear Modal -->
-  <div x-show="audioModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-audio" x-on:click.away="audioModal = false" x-on:keydown.escape.window="audioModal = false" style="display:none;">
-    <div class="tools-modal-bg" x-on:click="audioModal = false"></div>
-    <div class="tools-modal-box">
+  <div x-show="audioModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-audio" @click.away="audioModal = false" @keydown.escape.window="audioModal = false" style="display:none;">
+    <div class="tools-modal-bg" @click="audioModal = false"></div>
+    <div class="tools-modal-box" tabindex="-1">
       <div class="tools-modal-header">
         <h3 id="modal-title-audio">Audio Gear Essentials</h3>
-        <button x-on:click="audioModal = false" class="tools-modal-close" aria-label="Close dialog">×</button>
+        <button @click="audioModal = false" class="tools-modal-close">×</button>
       </div>
       <div class="tools-modal-grid">
         <div class="tools-gear-card">
@@ -487,25 +468,25 @@
   </div>
 
   <!-- Mixing Basics Modal -->
-  <div x-show="mixingModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-mixing" x-on:click.away="mixingModal = false" x-on:keydown.escape.window="mixingModal = false" style="display:none;">
-    <div class="tools-modal-bg" x-on:click="mixingModal = false"></div>
-    <div class="tools-modal-box wide">
+  <div x-show="mixingModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-mixing" @click.away="mixingModal = false" @keydown.escape.window="mixingModal = false" style="display:none;">
+    <div class="tools-modal-bg" @click="mixingModal = false"></div>
+    <div class="tools-modal-box wide" tabindex="-1">
       <div class="tools-modal-header">
         <h3 id="modal-title-mixing">Mixing Basics</h3>
-        <button x-on:click="mixingModal = false" class="tools-modal-close" aria-label="Close dialog">×</button>
+        <button @click="mixingModal = false" class="tools-modal-close">×</button>
       </div>
       <div class="section-note" style="margin-bottom:16px;text-align:center;">W.I.P. — guides to the basics</div>
       <div style="display:flex;gap:24px;">
         <div class="tools-mixing-sidebar">
-          <button x-on:click="selectedMix = 'eq'" style="width:100%;text-align:left;padding:8px 12px;border-radius:8px;font-size:14px;transition:all 0.2s;" x-bind:style="selectedMix === 'eq' ? 'background:rgba(168,85,247,0.1);color:var(--purple);border:1px solid rgba(168,85,247,0.2);' : 'color:var(--muted);border:1px solid transparent;background:transparent;'">
+          <button @click="selectedMix = 'eq'" style="width:100%;text-align:left;padding:8px 12px;border-radius:8px;font-size:14px;transition:all 0.2s;" :style="selectedMix === 'eq' ? 'background:rgba(168,85,247,0.1);color:var(--purple);border:1px solid rgba(168,85,247,0.2);' : 'color:var(--muted);border:1px solid transparent;background:transparent;'">
             <span style="font-weight:500;">EQ</span>
             <span style="font-size:12px;display:block;color:var(--muted);">Equalization</span>
           </button>
-          <button x-on:click="selectedMix = 'compression'" style="width:100%;text-align:left;padding:8px 12px;border-radius:8px;font-size:14px;transition:all 0.2s;" x-bind:style="selectedMix === 'compression' ? 'background:rgba(168,85,247,0.1);color:var(--purple);border:1px solid rgba(168,85,247,0.2);' : 'color:var(--muted);border:1px solid transparent;background:transparent;'">
+          <button @click="selectedMix = 'compression'" style="width:100%;text-align:left;padding:8px 12px;border-radius:8px;font-size:14px;transition:all 0.2s;" :style="selectedMix === 'compression' ? 'background:rgba(168,85,247,0.1);color:var(--purple);border:1px solid rgba(168,85,247,0.2);' : 'color:var(--muted);border:1px solid transparent;background:transparent;'">
             <span style="font-weight:500;">Compression</span>
             <span style="font-size:12px;display:block;color:var(--muted);">Dynamic range</span>
           </button>
-          <button x-on:click="selectedMix = 'panning'" style="width:100%;text-align:left;padding:8px 12px;border-radius:8px;font-size:14px;transition:all 0.2s;" x-bind:style="selectedMix === 'panning' ? 'background:rgba(168,85,247,0.1);color:var(--purple);border:1px solid rgba(168,85,247,0.2);' : 'color:var(--muted);border:1px solid transparent;background:transparent;'">
+          <button @click="selectedMix = 'panning'" style="width:100%;text-align:left;padding:8px 12px;border-radius:8px;font-size:14px;transition:all 0.2s;" :style="selectedMix === 'panning' ? 'background:rgba(168,85,247,0.1);color:var(--purple);border:1px solid rgba(168,85,247,0.2);' : 'color:var(--muted);border:1px solid transparent;background:transparent;'">
             <span style="font-weight:500;">Panning</span>
             <span style="font-size:12px;display:block;color:var(--muted);">Stereo placement</span>
           </button>
@@ -586,7 +567,7 @@
                 <div style="position:absolute;left:0;right:0;top:25%;height:1px;background:rgba(255,255,255,0.05);"></div>
                 <div style="position:absolute;left:0;right:0;bottom:25%;height:1px;background:rgba(255,255,255,0.05);"></div>
                 <svg style="width:100%;height:100%;position:absolute;inset:0;" viewBox="0 0 400 200" preserveAspectRatio="none">
-                  <path x-bind:d="`M0,${100 - eqLow * 6.25} C60,${100 - eqLow * 6.25} 100,${100 - eqLowMid * 6.25} 150,${100 - eqLowMid * 6.25} C200,${100 - eqLowMid * 6.25} 250,${100 - eqHighMid * 6.25} 300,${100 - eqHighMid * 6.25} C330,${100 - eqHighMid * 6.25} 360,${100 - eqHigh * 6.25} 400,${100 - eqHigh * 6.25}`" fill="none" stroke="url(#eqGrad)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path :d="`M0,${100 - eqLow * 6.25} C60,${100 - eqLow * 6.25} 100,${100 - eqLowMid * 6.25} 150,${100 - eqLowMid * 6.25} C200,${100 - eqLowMid * 6.25} 250,${100 - eqHighMid * 6.25} 300,${100 - eqHighMid * 6.25} C330,${100 - eqHighMid * 6.25} 360,${100 - eqHigh * 6.25} 400,${100 - eqHigh * 6.25}`" fill="none" stroke="url(#eqGrad)" stroke-width="2.5" stroke-linecap="round"/>
                   <defs>
                     <linearGradient id="eqGrad" x1="0" y1="0" x2="1" y2="0">
                       <stop offset="0%" stop-color="#a855f7" stop-opacity="0.6"/>
@@ -596,7 +577,7 @@
                   </defs>
                 </svg>
                 <svg style="width:100%;height:100%;position:absolute;inset:0;" viewBox="0 0 400 200" preserveAspectRatio="none">
-                  <path x-bind:d="`M0,${100 - eqLow * 6.25} C60,${100 - eqLow * 6.25} 100,${100 - eqLowMid * 6.25} 150,${100 - eqLowMid * 6.25} C200,${100 - eqLowMid * 6.25} 250,${100 - eqHighMid * 6.25} 300,${100 - eqHighMid * 6.25} C330,${100 - eqHighMid * 6.25} 360,${100 - eqHigh * 6.25} 400,${100 - eqHigh * 6.25} L400,200 L0,200 Z`" fill="url(#eqGlow)" opacity="0.15"/>
+                  <path :d="`M0,${100 - eqLow * 6.25} C60,${100 - eqLow * 6.25} 100,${100 - eqLowMid * 6.25} 150,${100 - eqLowMid * 6.25} C200,${100 - eqLowMid * 6.25} 250,${100 - eqHighMid * 6.25} 300,${100 - eqHighMid * 6.25} C330,${100 - eqHighMid * 6.25} 360,${100 - eqHigh * 6.25} 400,${100 - eqHigh * 6.25} L400,200 L0,200 Z`" fill="url(#eqGlow)" opacity="0.15"/>
                   <defs>
                     <linearGradient id="eqGlow" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stop-color="#a855f7"/>
@@ -645,17 +626,17 @@
                 <div style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,0.1);"></div>
                 <div style="position:absolute;left:0;right:0;top:25%;height:1px;background:rgba(255,255,255,0.05);"></div>
                 <div style="position:absolute;left:0;right:0;bottom:25%;height:1px;background:rgba(255,255,255,0.05);"></div>
-                <div style="position:absolute;left:0;right:0;height:1px;border-top:1px dashed rgba(248,113,113,0.5);transition:all 100ms;" x-bind:style="'top: ' + ((70 - thresholdLin * 50) / 140 * 100) + '%'"></div>
-                <span style="position:absolute;font-size:9px;color:rgba(248,113,113,0.6);left:4px;transition:all 100ms;" x-bind:style="'top: calc(' + ((70 - thresholdLin * 50) / 140 * 100) + '% - 10px)'">Threshold</span>
+                <div style="position:absolute;left:0;right:0;height:1px;border-top:1px dashed rgba(248,113,113,0.5);transition:all 100ms;" :style="'top: ' + ((70 - thresholdLin * 50) / 140 * 100) + '%'"></div>
+                <span style="position:absolute;font-size:9px;color:rgba(248,113,113,0.6);left:4px;transition:all 100ms;" :style="'top: calc(' + ((70 - thresholdLin * 50) / 140 * 100) + '% - 10px)'">Threshold</span>
                 <div style="position:absolute;bottom:4px;right:4px;display:flex;align-items:flex-end;gap:1px;height:24px;">
-                  <template x-for="(gr, i) in grEnvelope" x-bind:key="i">
-                    <div style="width:2px;background:rgba(168,85,247,0.6);" x-bind:style="'height: ' + (gr * 24) + 'px'"></div>
+                  <template x-for="(gr, i) in grEnvelope" :key="i">
+                    <div style="width:2px;background:rgba(168,85,247,0.6);" :style="'height: ' + (gr * 24) + 'px'"></div>
                   </template>
                 </div>
                 <svg style="width:100%;height:100%;position:absolute;inset:0;" viewBox="0 0 400 140" preserveAspectRatio="none">
-                  <path x-bind:d="inputPath" fill="none" stroke="rgb(113,113,122)" stroke-width="1.5" opacity="0.35"/>
-                  <path x-bind:d="compressedPath" fill="none" stroke="rgb(168,85,247)" stroke-width="2.5" stroke-linecap="round"/>
-                  <path x-bind:d="compressedPath" fill="none" stroke="rgb(168,85,247)" stroke-width="6" opacity="0.15" stroke-linecap="round"/>
+                  <path :d="inputPath" fill="none" stroke="rgb(113,113,122)" stroke-width="1.5" opacity="0.35"/>
+                  <path :d="compressedPath" fill="none" stroke="rgb(168,85,247)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path :d="compressedPath" fill="none" stroke="rgb(168,85,247)" stroke-width="6" opacity="0.15" stroke-linecap="round"/>
                 </svg>
               </div>
               <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;">
@@ -697,7 +678,7 @@
                 }
               }">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                <select x-model="genre" x-on:change="applyGenre()" style="font-size:12px;background:var(--panel-bg);border:1px solid var(--line);border-radius:6px;padding:4px 8px;color:var(--ink);cursor:pointer;outline:none;">
+                <select x-model="genre" @change="applyGenre()" style="font-size:12px;background:var(--panel-bg);border:1px solid var(--line);border-radius:6px;padding:4px 8px;color:var(--ink);cursor:pointer;outline:none;">
                   <option value="classic">Classic</option>
                   <option value="metal">Metal</option>
                   <option value="hiphop">Rap / Hip-Hop</option>
@@ -795,72 +776,72 @@
                 </svg>
               </div>
               <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showBass ? 'box-shadow:inset 0 0 0 1px rgba(168,85,247,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showBass ? 'box-shadow:inset 0 0 0 1px rgba(168,85,247,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showBass" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:var(--purple);">Bass</span>
                   <span style="font-size:7px;color:var(--muted);">Center</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showSub ? 'box-shadow:inset 0 0 0 1px rgba(167,139,250,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showSub ? 'box-shadow:inset 0 0 0 1px rgba(167,139,250,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showSub" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#a78bfa;">Sub</span>
                   <span style="font-size:7px;color:var(--muted);">Low</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showHH ? 'box-shadow:inset 0 0 0 1px rgba(228,228,231,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showHH ? 'box-shadow:inset 0 0 0 1px rgba(228,228,231,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showHH" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#e4e4e7;">Hi-Hats</span>
                   <span style="font-size:7px;color:var(--muted);">Slight</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showVocals ? 'box-shadow:inset 0 0 0 1px rgba(250,204,21,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showVocals ? 'box-shadow:inset 0 0 0 1px rgba(250,204,21,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showVocals" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#facc15;">Vocals</span>
                   <span style="font-size:7px;color:var(--muted);">Center</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showKick ? 'box-shadow:inset 0 0 0 1px rgba(96,165,250,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showKick ? 'box-shadow:inset 0 0 0 1px rgba(96,165,250,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showKick" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#60a5fa;">Kick</span>
                   <span style="font-size:7px;color:var(--muted);">Low</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showToms ? 'box-shadow:inset 0 0 0 1px rgba(251,146,60,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showToms ? 'box-shadow:inset 0 0 0 1px rgba(251,146,60,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showToms" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#fb923c;">Toms</span>
                   <span style="font-size:7px;color:var(--muted);">Mid</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showSnare ? 'box-shadow:inset 0 0 0 1px rgba(251,146,60,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showSnare ? 'box-shadow:inset 0 0 0 1px rgba(251,146,60,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showSnare" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#fb923c;">Snare</span>
                   <span style="font-size:7px;color:var(--muted);">Wide</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showAdlibs ? 'box-shadow:inset 0 0 0 1px rgba(74,222,128,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showAdlibs ? 'box-shadow:inset 0 0 0 1px rgba(74,222,128,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showAdlibs" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#4ade80;">Adlibs</span>
                   <span style="font-size:7px;color:var(--muted);">Sides</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showEarCandy ? 'box-shadow:inset 0 0 0 1px rgba(125,211,252,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showEarCandy ? 'box-shadow:inset 0 0 0 1px rgba(125,211,252,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showEarCandy" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#7dd3fc;">Candy</span>
                   <span style="font-size:7px;color:var(--muted);">Wide</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showGuitar ? 'box-shadow:inset 0 0 0 1px rgba(249,115,22,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showGuitar ? 'box-shadow:inset 0 0 0 1px rgba(249,115,22,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showGuitar" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#f97316;">Guitar</span>
                   <span style="font-size:7px;color:var(--muted);">Sides</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showLead ? 'box-shadow:inset 0 0 0 1px rgba(34,211,238,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showLead ? 'box-shadow:inset 0 0 0 1px rgba(34,211,238,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showLead" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#22d3ee;">Lead</span>
                   <span style="font-size:7px;color:var(--muted);">Mid</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showPiano ? 'box-shadow:inset 0 0 0 1px rgba(20,184,166,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showPiano ? 'box-shadow:inset 0 0 0 1px rgba(20,184,166,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showPiano" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#14b8a6;">Piano</span>
                   <span style="font-size:7px;color:var(--muted);">Wide</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showStrings ? 'box-shadow:inset 0 0 0 1px rgba(167,139,250,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showStrings ? 'box-shadow:inset 0 0 0 1px rgba(167,139,250,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showStrings" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#a78bfa;">Strings</span>
                   <span style="font-size:7px;color:var(--muted);">Wide</span>
                 </label>
-                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" x-bind:style="showHorns ? 'box-shadow:inset 0 0 0 1px rgba(251,146,60,0.3)' : 'opacity:0.4'">
+                <label style="display:flex;flex-direction:column;align-items:center;padding:6px;border-radius:6px;background:var(--panel-bg);cursor:pointer;user-select:none;" :style="showHorns ? 'box-shadow:inset 0 0 0 1px rgba(251,146,60,0.3)' : 'opacity:0.4'">
                   <input type="checkbox" x-model="showHorns" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
                   <span style="font-size:10px;font-weight:500;color:#fb923c;">Horns</span>
                   <span style="font-size:7px;color:var(--muted);">Mid</span>
@@ -879,23 +860,23 @@
     <p class="section-note">Real free plugins that actually hold up in a mix. Click a category for hand-picked recommendations — every one is genuinely free and commercially usable.</p>
 
     <div class="tools-grid-5">
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="eqModal = true" x-on:keydown.enter="eqModal = true" x-on:keydown.space.prevent="eqModal = true"><span class="cat-icon">📊</span><h3>EQ</h3><p>Equalization</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="compressorModal = true" x-on:keydown.enter="compressorModal = true" x-on:keydown.space.prevent="compressorModal = true"><span class="cat-icon">⚡</span><h3>Compressors</h3><p>Dynamics</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="reverbModal = true" x-on:keydown.enter="reverbModal = true" x-on:keydown.space.prevent="reverbModal = true"><span class="cat-icon">🔊</span><h3>Reverbs</h3><p>Space & depth</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="delayModal = true" x-on:keydown.enter="delayModal = true" x-on:keydown.space.prevent="delayModal = true"><span class="cat-icon">🕐</span><h3>Delays</h3><p>Echo & rhythm</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="satModal = true" x-on:keydown.enter="satModal = true" x-on:keydown.space.prevent="satModal = true"><span class="cat-icon">🔥</span><h3>Saturation</h3><p>Harmonic color</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="synthModal = true" x-on:keydown.enter="synthModal = true" x-on:keydown.space.prevent="synthModal = true"><span class="cat-icon">🎹</span><h3>Synths</h3><p>Sound generators</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="samplerModal = true" x-on:keydown.enter="samplerModal = true" x-on:keydown.space.prevent="samplerModal = true"><span class="cat-icon">💿</span><h3>Samplers</h3><p>Play & chop</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="meterModal = true" x-on:keydown.enter="meterModal = true" x-on:keydown.space.prevent="meterModal = true"><span class="cat-icon">📈</span><h3>Meters</h3><p>Analyze & measure</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="utilityModal = true" x-on:keydown.enter="utilityModal = true" x-on:keydown.space.prevent="utilityModal = true"><span class="cat-icon">🔧</span><h3>Utility</h3><p>Limiters & clippers</p></div>
-      <div class="tools-cat-card" role="button" tabindex="0" x-on:click="modModal = true" x-on:keydown.enter="modModal = true" x-on:keydown.space.prevent="modModal = true"><span class="cat-icon">🔄</span><h3>Modulation</h3><p>Chorus, flange, phase</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="eqModal = true" @keydown.enter="eqModal = true" @keydown.space.prevent="eqModal = true"><span class="cat-icon">📊</span><h3>EQ</h3><p>Equalization</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="compressorModal = true" @keydown.enter="compressorModal = true" @keydown.space.prevent="compressorModal = true"><span class="cat-icon">⚡</span><h3>Compressors</h3><p>Dynamics</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="reverbModal = true" @keydown.enter="reverbModal = true" @keydown.space.prevent="reverbModal = true"><span class="cat-icon">🔊</span><h3>Reverbs</h3><p>Space & depth</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="delayModal = true" @keydown.enter="delayModal = true" @keydown.space.prevent="delayModal = true"><span class="cat-icon">🕐</span><h3>Delays</h3><p>Echo & rhythm</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="satModal = true" @keydown.enter="satModal = true" @keydown.space.prevent="satModal = true"><span class="cat-icon">🔥</span><h3>Saturation</h3><p>Harmonic color</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="synthModal = true" @keydown.enter="synthModal = true" @keydown.space.prevent="synthModal = true"><span class="cat-icon">🎹</span><h3>Synths</h3><p>Sound generators</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="samplerModal = true" @keydown.enter="samplerModal = true" @keydown.space.prevent="samplerModal = true"><span class="cat-icon">💿</span><h3>Samplers</h3><p>Play & chop</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="meterModal = true" @keydown.enter="meterModal = true" @keydown.space.prevent="meterModal = true"><span class="cat-icon">📈</span><h3>Meters</h3><p>Analyze & measure</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="utilityModal = true" @keydown.enter="utilityModal = true" @keydown.space.prevent="utilityModal = true"><span class="cat-icon">🔧</span><h3>Utility</h3><p>Limiters & clippers</p></div>
+      <div class="tools-cat-card" role="button" tabindex="0" @click="modModal = true" @keydown.enter="modModal = true" @keydown.space.prevent="modModal = true"><span class="cat-icon">🔄</span><h3>Modulation</h3><p>Chorus, flange, phase</p></div>
     </div>
 
     <!-- EQ Modal -->
-    <div x-show="eqModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-eq" x-on:click.away="eqModal = false" x-on:keydown.escape.window="eqModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="eqModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-eq">📊 Free EQ Plugins</h3><button x-on:click="eqModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="eqModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-eq" @click.away="eqModal = false" @keydown.escape.window="eqModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="eqModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-eq">📊 Free EQ Plugins</h3><button @click="eqModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://www.tokyodawn.net/tdr-nova/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TDR Nova</span><span class="link-desc">Dynamic parametric EQ — 4 bands that can react to the incoming signal. Brilliant for de-essing, taming harsh frequencies, and frequency-selective compression.</span></a>
           <a href="https://www.tokyodawn.net/tdr-slickeq/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TDR SlickEQ</span><span class="link-desc">Mixing EQ with three switchable voicing modes (American, British, German). 3 bands with filters — great for shaping tone on individual tracks or buses.</span></a>
@@ -907,10 +888,10 @@
     </div>
 
     <!-- Compressor Modal -->
-    <div x-show="compressorModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-compressor" x-on:click.away="compressorModal = false" x-on:keydown.escape.window="compressorModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="compressorModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-compressor">⚡ Free Compressor Plugins</h3><button x-on:click="compressorModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="compressorModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-compressor" @click.away="compressorModal = false" @keydown.escape.window="compressorModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="compressorModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-compressor">⚡ Free Compressor Plugins</h3><button @click="compressorModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://www.tokyodawn.net/tdr-kotelnikov/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TDR Kotelnikov</span><span class="link-desc">Mastering-grade wideband compressor. Transparent, precise, with separate release times for peak and RMS content.</span></a>
           <a href="https://www.audiodamage.com/products/ad046-rough-rider-3" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Rough Rider 3 (Audio Damage)</span><span class="link-desc">Character compressor with a unique sound. Huge range from subtle gluing to aggressive pumping. Great for drums and creative bus processing.</span></a>
@@ -923,10 +904,10 @@
     </div>
 
     <!-- Reverb Modal -->
-    <div x-show="reverbModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-reverb" x-on:click.away="reverbModal = false" x-on:keydown.escape.window="reverbModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="reverbModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-reverb">🔊 Free Reverb Plugins</h3><button x-on:click="reverbModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="reverbModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-reverb" @click.away="reverbModal = false" @keydown.escape.window="reverbModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="reverbModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-reverb">🔊 Free Reverb Plugins</h3><button @click="reverbModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://valhalladsp.com/shop/reverb/valhalla-supermassive/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Valhalla Supermassive</span><span class="link-desc">Massive reverb/delay hybrid with 18+ celestial modes. Huge ambient tails, warp effects, and near-zero CPU.</span></a>
           <a href="https://michaelwillis.com/dragonfly-reverb/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Dragonfly Reverb</span><span class="link-desc">Open-source algorithmic reverb with Hall, Plate, and Room algorithms. Smooth, natural, and extensively tweakable.</span></a>
@@ -938,10 +919,10 @@
     </div>
 
     <!-- Delay Modal -->
-    <div x-show="delayModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-delay" x-on:click.away="delayModal = false" x-on:keydown.escape.window="delayModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="delayModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-delay">🕐 Free Delay Plugins</h3><button x-on:click="delayModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="delayModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-delay" @click.away="delayModal = false" @keydown.escape.window="delayModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="delayModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-delay">🕐 Free Delay Plugins</h3><button @click="delayModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://valhalladsp.com/shop/reverb/valhalla-supermassive/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Valhalla Supermassive</span><span class="link-desc">Also counts as a delay — feedback delay networks with delays up to 2 seconds. Slapbacks, ping-pong, and endless cascading echoes.</span></a>
           <a href="https://tal-software.com/products/tal-dub-x" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TAL-Dub-X</span><span class="link-desc">Tape echo emulation with modulation. Self-oscillation, wow & flutter, and a built-in filter.</span></a>
@@ -953,10 +934,10 @@
     </div>
 
     <!-- Saturation Modal -->
-    <div x-show="satModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-sat" x-on:click.away="satModal = false" x-on:keydown.escape.window="satModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="satModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-sat">🔥 Free Saturation & Distortion Plugins</h3><button x-on:click="satModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="satModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-sat" @click.away="satModal = false" @keydown.escape.window="satModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="satModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-sat">🔥 Free Saturation & Distortion Plugins</h3><button @click="satModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://www.softube.com/saturation-knob" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Softube Saturation Knob</span><span class="link-desc">One knob, instant analog warmth. Three modes (Clean, Warm, Dirt) covering everything from subtle tape saturation to crushed distortion.</span></a>
           <a href="https://aberrantdsp.com/plugins/ivgi2/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">IVGI2 (Aberrant DSP)</span><span class="link-desc">Saturation and distortion with asymmetric clipping. From subtle harmonic enhancement to aggressive fuzz.</span></a>
@@ -968,10 +949,10 @@
     </div>
 
     <!-- Synth Modal -->
-    <div x-show="synthModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-synth" x-on:click.away="synthModal = false" x-on:keydown.escape.window="synthModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="synthModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-synth">🎹 Free Synth Plugins</h3><button x-on:click="synthModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="synthModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-synth" @click.away="synthModal = false" @keydown.escape.window="synthModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="synthModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-synth">🎹 Free Synth Plugins</h3><button @click="synthModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://vital.audio/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Vital (Matt Tytel)</span><span class="link-desc">Wavetable synth that rivals Serum. Visual modulation system, dual filters, integrated FX, and a massive preset community.</span></a>
           <a href="https://surge-synthesizer.github.io/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Surge XT</span><span class="link-desc">Open-source hybrid synth with wavetable, FM, and analog-style oscillators. Dual filters, built-in FX, and deep modulation.</span></a>
@@ -985,10 +966,10 @@
     </div>
 
     <!-- Sampler Modal -->
-    <div x-show="samplerModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-sampler" x-on:click.away="samplerModal = false" x-on:keydown.escape.window="samplerModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="samplerModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-sampler">💿 Free Sampler & Instrument Plugins</h3><button x-on:click="samplerModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="samplerModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-sampler" @click.away="samplerModal = false" @keydown.escape.window="samplerModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="samplerModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-sampler">💿 Free Sampler & Instrument Plugins</h3><button @click="samplerModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://labs.spitfireaudio.com/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Spitfire LABS</span><span class="link-desc">Beautifully sampled instruments — strings, pianos, choirs, synths, and experimental textures. Free and commercially usable.</span></a>
           <a href="https://www.decentsamples.com/product/decent-sampler/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Decent Sampler</span><span class="link-desc">Free sample player that loads thousands of free sound libraries from the community. Huge ecosystem of free content.</span></a>
@@ -1000,10 +981,10 @@
     </div>
 
     <!-- Meter Modal -->
-    <div x-show="meterModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-meter" x-on:click.away="meterModal = false" x-on:keydown.escape.window="meterModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="meterModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-meter">📈 Free Metering & Analyzer Plugins</h3><button x-on:click="meterModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="meterModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-meter" @click.away="meterModal = false" @keydown.escape.window="meterModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="meterModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-meter">📈 Free Metering & Analyzer Plugins</h3><button @click="meterModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://youlean.co/youlean-loudness-meter/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">YouLean Loudness Meter</span><span class="link-desc">Industry standard for LUFS loudness metering. Integrated, short-term, momentary, and true peak.</span></a>
           <a href="https://www.voxengo.com/product/span/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">SPAN (Voxengo)</span><span class="link-desc">Real-time FFT spectrum analyzer with high precision and low CPU. Stereo/mid/side mode, peak hold.</span></a>
@@ -1016,10 +997,10 @@
     </div>
 
     <!-- Utility Modal -->
-    <div x-show="utilityModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-utility" x-on:click.away="utilityModal = false" x-on:keydown.escape.window="utilityModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="utilityModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-utility">🔧 Free Utility Plugins — Limiters, Clippers & More</h3><button x-on:click="utilityModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="utilityModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-utility" @click.away="utilityModal = false" @keydown.escape.window="utilityModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="utilityModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-utility">🔧 Free Utility Plugins — Limiters, Clippers & More</h3><button @click="utilityModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://vladgsound.wordpress.com/limiter6/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Limiter No.6 (Vladislav Goncharov)</span><span class="link-desc">Full-featured limiter/maximizer with five processing stages: RMS compressor, peak clipper, peak limiter, saturator, and output stage.</span></a>
           <a href="https://loudmax.blogspot.com/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">LoudMax (Christian Budde)</span><span class="link-desc">Simple, transparent brickwall limiter. Just threshold and output — no oversampling needed.</span></a>
@@ -1032,10 +1013,10 @@
     </div>
 
     <!-- Modulation Modal -->
-    <div x-show="modModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-mod" x-on:click.away="modModal = false" x-on:keydown.escape.window="modModal = false" style="display:none;">
-      <div class="tools-modal-bg" x-on:click="modModal = false"></div>
-      <div class="tools-modal-box">
-        <div class="tools-modal-header"><h3 id="modal-title-mod">🔄 Free Modulation Plugins — Chorus, Flanger, Phaser</h3><button x-on:click="modModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+    <div x-show="modModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-mod" @click.away="modModal = false" @keydown.escape.window="modModal = false" style="display:none;">
+      <div class="tools-modal-bg" @click="modModal = false"></div>
+      <div class="tools-modal-box" tabindex="-1">
+        <div class="tools-modal-header"><h3 id="modal-title-mod">🔄 Free Modulation Plugins — Chorus, Flanger, Phaser</h3><button @click="modModal = false" class="tools-modal-close">×</button></div>
         <div class="tools-modal-link-list">
           <a href="https://tal-software.com/products/tal-chorus-lx" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">TAL-Chorus-LX</span><span class="link-desc">Juno 60 chorus emulation with that thick, lush analog chorus sound. Three modes covering everything from subtle width to rich modulation.</span></a>
           <a href="https://www.bluecataudio.com/Products/Product_Chorus/" target="_blank" rel="noopener noreferrer" class="tools-link-card"><span class="link-name">Blue Cat's Chorus</span><span class="link-desc">Clean, versatile chorus with rate, depth, mix, and delay controls. Four voices per channel.</span></a>
@@ -1068,7 +1049,7 @@
         <span class="tools-tag">🎵 iHeartRadio</span>
       </div>
       <p class="section-note">You upload your music to the distributor once — they handle delivery to every platform, collect royalties, and pay you out.</p>
-      <button x-on:click="distroModal = true" style="margin-top:8px;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--purple);background:rgba(168,85,247,0.1);padding:6px 12px;border-radius:9999px;border:1px solid rgba(168,85,247,0.2);cursor:pointer;transition:all 0.2s;">
+      <button @click="distroModal = true" style="margin-top:8px;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--purple);background:rgba(168,85,247,0.1);padding:6px 12px;border-radius:9999px;border:1px solid rgba(168,85,247,0.2);cursor:pointer;transition:all 0.2s;">
         ⚖️ Check %'s distros take
       </button>
     </div>
@@ -1094,10 +1075,10 @@
   </div>
 
   <!-- Distribution Comparison Modal -->
-  <div x-show="distroModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-distro" x-on:click.away="distroModal = false" x-on:keydown.escape.window="distroModal = false" style="display:none;">
-    <div class="tools-modal-bg" x-on:click="distroModal = false"></div>
-    <div class="tools-modal-box wide">
-      <div class="tools-modal-header"><h3 id="modal-title-distro">⚖️ Distributor Comparison — % & Fees</h3><button x-on:click="distroModal = false" class="tools-modal-close" aria-label="Close dialog">×</button></div>
+  <div x-show="distroModal" x-cloak class="tools-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-distro" @click.away="distroModal = false" @keydown.escape.window="distroModal = false" style="display:none;">
+    <div class="tools-modal-bg" @click="distroModal = false"></div>
+    <div class="tools-modal-box wide" tabindex="-1">
+      <div class="tools-modal-header"><h3 id="modal-title-distro">⚖️ Distributor Comparison — % & Fees</h3><button @click="distroModal = false" class="tools-modal-close">×</button></div>
       <div style="overflow-x:auto;">
         <table style="width:100%;font-size:14px;text-align:left;">
           <thead>
@@ -1225,7 +1206,7 @@
   <!-- Sesh.fm Partner -->
   <div id="sesh" class="tools-partner-card">
     <div class="tools-partner-head">
-      <img src="https://sesh.fm/logos/color-logo-sm.webp" alt="Sesh" loading="lazy" decoding="async" width="120" height="32" style="height:32px;width:auto;" onerror="this.remove()">
+      <img src="https://sesh.fm/logos/color-logo-sm.webp" alt="Sesh" style="height:32px;">
       <h2>Sesh.fm</h2>
       <span class="partner-badge">Partner</span>
     </div>
@@ -1363,11 +1344,7 @@
 
       <footer>
         <span>CIRRATE · FOR PRODUCERS AND ENGINEERS</span>
-        <span id="footer-verified" class="footer-verified"></span>
-        <span class="footer-actions">
-          <button id="show-starters" class="footer-link" type="button">New here?</button>
-          <button id="settings-reopen" class="settings-reopen-btn" type="button">⚙ Settings</button>
-        </span>
+        <button id="settings-reopen" class="settings-reopen-btn" type="button">⚙ Settings</button>
       </footer>
 
       <aside id="settings-panel" class="settings-bottom" aria-label="Settings and admin panel">
